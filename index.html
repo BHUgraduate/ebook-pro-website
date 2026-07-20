@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eBook Pro | Premium Reading Experience</title>
-    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,7 +12,7 @@
                     colors: {
                         brand: {
                             dark: '#1C1C1E',
-                            accent: '#D4AF37', // Gold/Amber accent
+                            accent: '#D4AF37', 
                             light: '#F2F2F7'
                         }
                     },
@@ -108,7 +107,7 @@
                 <div class="absolute top-0 right-0 bg-brand-accent text-black text-xs font-bold px-4 py-1 rounded-bl-xl">POPULAR</div>
                 <h3 class="text-2xl font-bold mb-2">eBook Pro Premium</h3>
                 <div class="flex justify-center items-baseline gap-1 mb-6">
-                    <span class="text-4xl font-extrabold">₹1.9</span>
+                    <span class="text-4xl font-extrabold">₹9</span>
                     <span class="text-gray-400">/ month</span>
                 </div>
                 <ul class="text-left space-y-4 mb-8 text-gray-300">
@@ -145,7 +144,7 @@
                     <div class="prose prose-invert max-w-none text-gray-300 text-sm space-y-3">
                         <p><strong>1. Information We Collect:</strong> We collect information necessary to provide you with the best reading experience, including your email address (for account recovery), reading progress (to sync across devices), and highlight data.</p>
                         <p><strong>2. How We Use Information:</strong> We use this data solely to sync your library and secure your account. We never sell your personal data to third parties.</p>
-                        <p><strong>3. Data Deletion:</strong> You can permanently delete your account and all associated data at any time from the 'Security' section in your account settings within the app.</p>
+                        <p><strong>3. Data Deletion:</strong> You can permanently delete your account and all associated data at any time from the 'Security' section in your account settings within the app. Upon deletion, all reading data and identifying information is permanently wiped from our servers.</p>
                         <p><strong>4. Third-Party Services:</strong> The app uses third-party services that may collect information used to identify you. Services used include Google Play Services, Firebase Analytics, and Razorpay (for processing payments).</p>
                     </div>
                 </div>
@@ -155,7 +154,7 @@
                     <h3 class="text-2xl font-bold mb-4 text-brand-accent">Cancellation & Refund Policy</h3>
                     <div class="prose prose-invert max-w-none text-gray-300 text-sm space-y-3">
                         <p><strong>Cancellations:</strong> You may cancel your eBook Pro Premium subscription at any time. Cancellation will take effect at the end of the current billing cycle, and you will not be charged for the subsequent month. You will retain access to premium features until the end of your current cycle.</p>
-                        <p><strong>Refunds:</strong> Because eBook Pro Premium grants immediate access to digital content, cloud resources, and AI APIs, <strong>all purchases are final and non-refundable</strong>. We do not offer refunds or credits for partially used billing periods.</p>
+                        <p><strong>Refunds:</strong> Because eBook Pro Premium grants immediate access to digital content, cloud resources, and AI APIs, <strong>all purchases are final and non-refundable (0 Days Refund Policy)</strong>. We do not offer refunds or credits for partially used billing periods.</p>
                         <p>If you experience technical issues that prevent you from accessing the premium features you paid for, please contact our support team immediately for assistance.</p>
                     </div>
                 </div>
@@ -165,16 +164,23 @@
 
     <!-- Footer / Contact -->
     <footer id="contact" class="border-t border-white/10 py-12 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-400">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8 text-sm text-gray-400">
             <div>
                 <span class="font-bold text-white text-lg">eBook Pro</span>
                 <p class="mt-2">&copy; 2026 eBook Pro. All rights reserved.</p>
             </div>
             
-            <div class="text-center md:text-right">
-                <p class="font-bold text-white mb-2">Contact Support</p>
-                <p>Have questions or need help with your account?</p>
-                <!-- UPDATE THIS EMAIL BEFORE DEPLOYING -->
+            <div class="md:text-right">
+                <p class="font-bold text-white mb-4 text-lg">Contact & Operations</p>
+                
+                <!-- RAZORPAY COMPLIANCE: They require an operating address and phone number -->
+                <p class="mb-1"><strong>Operating Address:</strong></p>
+                <p class="mb-4">Varanasi, Uttar Pradesh, India - 221001</p> <!-- Feel free to update this to your real local address or keep it generic -->
+                
+                <p class="mb-1"><strong>Phone Number:</strong></p>
+                <p class="mb-4">+91 9876543210</p> <!-- Change to your phone or keep dummy -->
+
+                <p class="mb-1"><strong>Support Email:</strong></p>
                 <a href="mailto:support.ebookpro@gmail.com" class="text-brand-accent hover:underline">support.ebookpro@gmail.com</a>
                 <p class="mt-2">Response time: 24-48 hours</p>
             </div>
@@ -183,4 +189,5 @@
 
 </body>
 </html>
+
 
