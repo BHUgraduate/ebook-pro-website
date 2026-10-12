@@ -1,0 +1,22 @@
+import { premium, site } from '../site.config.mjs';
+
+// Answers are HTML snippets. Keep them consistent with the Privacy Policy, Premium and Formats pages.
+export const faq = [
+  { q: 'What is eBook Pro?', a: '<p>eBook Pro is a reading and learning app for PDF, EPUB and text books. You can import your own books, highlight and annotate, look words up, translate, listen, make flashcards, and (with Premium) ask for AI explanations of passages.</p>' },
+  { q: 'Is eBook Pro free?', a: `<p>Reading your own books, highlighting, flashcards, translation, listen mode, focus mode and streaks are free. AI explanations and access to Premium store content need Premium (${premium.priceDisplay}). See <a href="/premium/">Premium</a>.</p>` },
+  { q: 'Is an account required?', a: '<p>No, not to read. The bookshelf works signed out and your imported books stay on your device. An account is needed to download store books, post reviews, use AI explanations and buy Premium.</p>' },
+  { q: 'Can I import my own books?', a: '<p>Yes. Import PDF, EPUB and TXT files from your device. Imported files stay on your device and are not uploaded to our servers.</p>' },
+  { q: 'What formats are supported?', a: '<p>PDF, EPUB (2 and 3) and TXT. MOBI, DOCX and DRM-protected files are not supported. Details and limitations are on the <a href="/formats/">formats page</a>.</p>' },
+  { q: 'Does it support PDF?', a: '<p>Yes, with zoom, search, text selection, a table of contents when the PDF has an outline, and pen/highlighter annotations.</p>' },
+  { q: 'Does it support EPUB and EPUB3?', a: '<p>Yes. EPUB 2 and EPUB 3 both open. The text is re-flowed in eBook Pro’s own typography, so the book’s original styling is not applied, and images inside reflowable chapters are not shown yet.</p>' },
+  { q: 'Does it support OCR?', a: '<p>Yes, for searching scanned PDF pages. OCR runs on your device using Google ML Kit, on Android and iOS only. It is not available in the web app.</p>' },
+  { q: 'Can I zoom?', a: '<p>Yes, PDF pages support pinch-to-zoom and panning. For EPUB and TXT, adjust text size and typography instead.</p>' },
+  { q: 'Does it sync across devices?', a: '<p>Not yet. Imported books, reading progress, highlights, flashcards and streaks are stored on the device (or browser) you use. Your account and your store library are stored online. Cross-device sync is something we are exploring; see the <a href="/roadmap/">roadmap</a>.</p>' },
+  { q: 'Does it use AI?', a: '<p>Yes, for one feature today: Premium readers can ask for an explanation of a selected passage. The selected text and its surrounding paragraph are sent through our server to Google’s Gemini. Translation, OCR and listen mode run on your device. See <a href="/ai/">AI</a>.</p>' },
+  { q: 'What happens to my data?', a: '<p>Your books and reading data stay on your device. Your account details, store library, reviews and AI usage counters are stored in Google Firebase. We do not sell your data. Read the full <a href="/privacy/">Privacy Policy</a>.</p>' },
+  { q: 'How do I delete my account?', a: '<p>In the app: Settings → My Account → Delete My Account. Or on the web at <a href="/delete-account/">Account &amp; data deletion</a>. Both permanently delete your account.</p>' },
+  { q: 'Is eBook Pro available on Android?', a: '<p>Yes, Android is the primary platform and the app is being prepared for Google Play. See <a href="/download/">Download</a> for the current status.</p>' },
+  { q: 'Is it available on iPhone and iPad?', a: '<p>Not yet. There is no iOS release, and we will not list an App Store link until there is.</p>' },
+  { q: 'How does Premium work?', a: `<p>Premium costs ${premium.priceDisplay} and is paid through ${premium.provider} (UPI, cards, netbanking, wallets). It unlocks AI explanations (up to ${premium.aiDailyLimit} per day) and premium store content. See <a href="/premium/">Premium</a> for billing, cancellation and refund details.</p>` },
+  { q: 'How do I contact support?', a: `<p>Email <a href="mailto:${site.supportEmail}">${site.supportEmail}</a>. See <a href="/support/">Support</a> for what to include.</p>` },
+];

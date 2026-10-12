@@ -1,0 +1,13 @@
+{
+  "name": "ebook-pro-website",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Official website for eBook Pro (ebookpro.hycyon.com). Zero-dependency static site generator.",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node scripts/check.mjs",
+    "serve": "node scripts/serve.mjs"
+  }
+}
