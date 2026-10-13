@@ -118,10 +118,10 @@ export function home() {
 </section>
 
 <section class="reveal">
-  <div class="wrap narrow">
+  <div class="wrap">
     <div class="section-head"><h2>Screenshots</h2></div>
     ${screenshots.length
-      ? `<div class="shots">${screenshots.map((s) => `<figure><img src="/assets/screenshots/${s.file}" alt="${esc(s.alt)}" width="${s.width}" height="${s.height}" loading="lazy" decoding="async"><figcaption>${esc(s.caption)}</figcaption></figure>`).join('')}</div>`
+      ? `<div class="shots">${screenshots.map((s) => `<figure${s.wide ? ' class="wide"' : ''}><img src="/assets/screenshots/${s.file}" alt="${esc(s.alt)}" width="${s.width}" height="${s.height}" loading="lazy" decoding="async"><figcaption>${esc(s.caption)}</figcaption></figure>`).join('')}</div><p class="small muted">Screenshots show the Android app with public-domain sample books and sample notes.</p>`
       : `<div class="empty"><p><strong>Screenshots are coming soon.</strong></p><p class="small">We only show real screenshots of the released app. Until they are added, see the <a href="/docs/">documentation</a> for how each feature works.</p></div>`}
   </div>
 </section>

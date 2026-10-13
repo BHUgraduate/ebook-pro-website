@@ -226,8 +226,8 @@ details.faq .a p:last-child{margin:0}
 .copy{margin:2rem 0 0;padding-top:1.25rem;border-top:1px solid var(--line)}
 
 /* Screenshots gallery */
-.shots{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
-.shots figure{margin:0}.shots img{border-radius:12px;border:1px solid var(--line)}
+.shots{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.shots figure{margin:0}.shots figure.wide{grid-column:span 2}.shots img{border-radius:12px;border:1px solid var(--line)}
 .shots figcaption{font-size:.85rem;color:var(--ink-3);margin-top:.4rem}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r);padding:2rem;text-align:center;color:var(--ink-3)}
 
