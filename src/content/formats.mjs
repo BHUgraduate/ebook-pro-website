@@ -9,7 +9,7 @@ export const formats = [
     rows: {
       Import: ['yes', 'From device storage, copied into the app.'],
       Reading: ['yes', 'Page-by-page; one page on phones, optionally two-page spreads on wide screens.'],
-      Search: ['yes', 'Uses the PDF’s own text layer. Pages without text are read with on-device OCR (Android and iOS only).'],
+      Search: ['yes', 'Uses the PDF’s own text layer. Pages without text are read with on-device OCR (Android only; English and Hindi).'],
       'Text extraction': ['yes', 'Used for selection, lookups and search. Scanned PDFs depend on OCR quality.'],
       Images: ['yes', 'Pages are rendered as images, so figures appear as in the original.'],
       Layout: ['yes', 'Original layout preserved. Optional automatic margin cropping.'],

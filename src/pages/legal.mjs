@@ -1,115 +1,36 @@
 import { site, premium } from '../site.config.mjs';
 import { esc, pageHead, updatedLine, ctaBand } from '../layout.mjs';
+import { privacySections } from '../content/privacy.mjs';
 
 const mail = `<a href="mailto:${site.supportEmail}">${site.supportEmail}</a>`;
 const toc = (items) => `<nav class="toc" aria-label="On this page"><h2>On this page</h2><ol>${items.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ol></nav>`;
 const table = (head, rows, cap) => `<div class="table-wrap"><table><caption class="sr-only">${cap}</caption><thead><tr>${head.map((h) => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row">${c}</th>` : `<td>${c}</td>`)).join('')}</tr>`).join('')}</tbody></table></div>`;
 
 /* ---------------------------------------------------------------- PRIVACY */
+/** Inline markup used by the shared policy text: **bold**, `code`, [label](url). */
+export const inlineHtml = (text) =>
+  esc(text)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`(.+?)`/g, '<code>$1</code>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>')
+    .replace(/\n/g, '<br>');
+
+function renderBlock(block) {
+  if (typeof block === 'string') return `<p>${inlineHtml(block)}</p>`;
+  if (block.ul) return `<ul>${block.ul.map((i) => `<li>${inlineHtml(i)}</li>`).join('')}</ul>`;
+  if (block.table) {
+    const { caption, head, rows } = block.table;
+    return `<div class="table-wrap"><table><caption class="sr-only">${esc(caption)}</caption><thead><tr>${head.map((h) => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row">${inlineHtml(c)}</th>` : `<td>${inlineHtml(c)}</td>`)).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }
+  return '';
+}
+
 export function privacy() {
-  const sections = [
-    ['who', 'Who we are and what this covers'], ['summary', 'Summary'], ['collect', 'Information we collect'], ['device', 'Data that stays on your device'],
-    ['use', 'How we use information'], ['ai', 'AI features'], ['third', 'Third-party services'], ['visible', 'What other people can see'],
-    ['security', 'Security'], ['retention', 'Retention and deletion'], ['choices', 'Your choices and rights'], ['children', 'Children'],
-    ['transfers', 'Where data is processed'], ['website', 'This website'], ['changes', 'Changes to this policy'], ['contact', 'Contact'],
-  ];
   const body = `${pageHead('Legal', 'Privacy Policy', 'How eBook Pro handles your information. This is the single, official privacy policy for the eBook Pro Android app, the eBook Pro web app and this website.')}
 <section><div class="wrap narrow prose">
 ${updatedLine(site.updated.privacy)}
-${toc(sections)}
-
-<h2 id="who">1. Who we are and what this covers</h2>
-<p>eBook Pro is a reading and learning app developed by <strong>${site.developer.name}</strong>, ${site.developer.location} (“we”, “us”). This policy covers the eBook Pro Android app (package <code>${site.android.packageName}</code>), the web app at ${site.webAppUrl.replace('https://', '')}, and this website. It describes what the apps actually do today. Contact: ${mail}.</p>
-
-<h2 id="summary">2. Summary</h2>
-<ul>
-<li>You can read without an account. <strong>Books you import, your reading progress, highlights, flashcards and streaks stay on your device</strong> (or in your browser for the web app). We do not upload them.</li>
-<li>If you create an account, we store your account details and a few account-related records online (see section 3).</li>
-<li>If you use <strong>AI explanations</strong> (Premium), the text you select and its surrounding paragraph are sent through our server to Google’s Gemini.</li>
-<li>We do not sell your personal information. The app does not include an advertising SDK or a dedicated analytics or crash-reporting SDK.</li>
-<li>You can delete your account in the app or at <a href="/delete-account/">Account &amp; data deletion</a>.</li>
-</ul>
-
-<h2 id="collect">3. Information we collect</h2>
-<p>Only the categories below are collected, and only if you use the related feature.</p>
-${table(
-    ['Category', 'What', 'Why', 'Where it is stored'],
-    [
-      ['Account', 'Sign-in identifier (email, phone number or username), display name, optional recovery email and recovery phone, account ID, creation time. For Google sign-in, the profile details Google returns.', 'Create and secure your account; account recovery; show your name on reviews.', 'Google Firebase Authentication and Cloud Firestore'],
-      ['Password', 'Handled by Firebase Authentication. We cannot read it. Username accounts use an internal “shadow” email address created by the app.', 'Authentication.', 'Firebase Authentication'],
-      ['Profile photo (optional)', 'An image you choose, uploaded from your photo library.', 'Show your avatar.', 'Firebase Storage (the image link is publicly readable)'],
-      ['Store library', 'Which store books or newspapers you saved or bought.', 'Let you re-open books you own.', 'Cloud Firestore'],
-      ['Reviews and reports', 'Review text and rating you post; reports you file against a review.', 'Show reviews; moderate abuse.', 'Cloud Firestore'],
-      ['Community highlights (optional)', 'When you share a highlight in a store book: the book, and the character range. The count of readers who highlighted a range is stored; your identity is not.', 'Show popular passages.', 'Cloud Firestore'],
-      ['AI request data', 'Selected text, surrounding paragraph, language, your sign-in token (see section 6). A per-day request counter is saved to your account.', 'Provide AI explanations and enforce limits.', 'Processed by Google Cloud Functions and Google Gemini; counter in Firestore'],
-      ['Premium status and payment', 'A Premium flag and activation time on your account. Payment is made through Razorpay; we receive confirmation that a payment succeeded, not your card or UPI details. Your email and phone are passed to Razorpay checkout to pre-fill it.', 'Activate Premium; support.', 'Cloud Firestore; payment records are held by Razorpay'],
-      ['Notification setting', 'If you turn on notifications, the app asks the operating system for permission and uses Firebase Cloud Messaging.', 'Optional notifications.', 'Google Firebase Cloud Messaging'],
-      ['Search and lookups', 'Text you type into store search, or a word you look up on Wikipedia (see section 7).', 'Return results.', 'Sent to the services listed in section 7; not stored by us'],
-    ],
-    'Information we collect'
-  )}
-<p>We do <strong>not</strong> collect your contacts, precise location, microphone, camera or advertising ID. The app does not include a dedicated analytics or crash-reporting SDK (Google’s Firebase and ML Kit components it uses may process basic technical data as described by Google). The Android app declares internet access; it asks for photo access only when you pick a profile photo, and for notification permission only if you turn notifications on. Your Google Play listing and Android system settings show the final permission list.</p>
-
-<h2 id="device">4. Data that stays on your device</h2>
-<p>The following are saved only on your device (in your browser for the web app) and are not sent to us: imported book files, reading progress and position, highlights and pen annotations, flashcards and study schedule, reading streaks and statistics, and app settings. Uninstalling the app or clearing browser data removes them. We cannot recover them for you.</p>
-
-<h2 id="use">5. How we use information</h2>
-<ul><li>To create and secure your account, sign you in and let you recover access.</li><li>To provide features you ask for: store downloads, reviews, community highlights, AI explanations, Premium.</li><li>To enforce usage limits and prevent abuse.</li><li>To process and support Premium purchases.</li><li>To respond to your support requests.</li></ul>
-<p>We do not use your data for advertising, and we do not sell it.</p>
-
-<h2 id="ai">6. AI features</h2>
-<p>AI explanations are available to Premium accounts. When you request one, the app sends the selected text, its surrounding paragraph, the output language and your sign-in token over HTTPS to a Google Cloud function that we operate. The function verifies your account and Premium status, counts the request against your daily limit (${premium.aiDailyLimit} per day), and sends the text to a Google Gemini model to produce the explanation. The Gemini API key is held on our server, not in the app.</p>
-<p>To avoid repeating identical requests, the function caches the answer in Firestore under a one-way hash of the text, context and language. The cache holds the answer text and a timestamp, not your account ID. Google handles data sent to the Gemini API under its own terms; please review Google’s documentation. Please do not select sensitive personal information. See also <a href="/ai/">AI</a>.</p>
-<p>Translation, OCR and read-aloud run on your device and do not send your text to us.</p>
-
-<h2 id="third">7. Third-party services</h2>
-<p>These are the external services that eBook Pro actually uses.</p>
-${table(
-    ['Service', 'Why', 'Data it may process', 'Required?'],
-    [
-      ['Google Firebase (Authentication, Cloud Firestore, Cloud Storage, Cloud Functions, Cloud Messaging, Hosting)', 'Accounts, our database, file storage, server functions, notifications, hosting the web app.', 'Account details, store library, reviews, avatar, AI counters, device tokens for notifications, technical logs.', 'Required for accounts and online features; not for reading your own books.'],
-      ['Google Sign-In', 'Optional sign-in with Google.', 'Google account email, name and photo returned to the app.', 'Optional.'],
-      ['Sign in with Apple', 'The app contains Apple sign-in code; it is not an announced method yet.', 'Name and email if used.', 'Optional.'],
-      ['Google Gemini API', 'Generates AI explanations.', 'Selected text and surrounding paragraph (via our server).', 'Only if you use AI explanations (Premium).'],
-      ['Google ML Kit', 'On-device translation and OCR. Translation language models are downloaded from Google on demand.', 'Processing is on your device. Model download requests reveal normal network information (such as IP address) to Google.', 'Only if you use those features.'],
-      ['Gmail (SMTP)', 'Sends the password-reset code to the recovery email of username accounts.', 'Recovery email address and the code.', 'Only if you reset a username-account password.'],
-      ['Razorpay', 'Takes Premium payments.', 'Payment details you enter at checkout; pre-filled email and phone.', 'Only if you buy Premium.'],
-      ['Wikipedia (Wikimedia)', 'Short summaries for a selected word.', 'The word you look up.', 'Only when you tap Wikipedia.'],
-      ['Book and research catalogues: Google Books, Open Library, Internet Archive, Project Gutenberg (Gutendex), arXiv, Semantic Scholar, Crossref', 'Store search, book details and public downloads.', 'Your search words, and the requests needed to download a file.', 'Only when you search or download.'],
-      ['News sources (a NewsAPI mirror and Inshorts) and Unsplash', 'Headlines and placeholder images in the store.', 'Standard request information such as IP address.', 'Only when you browse news.'],
-      ['Google Play', 'Distributes the Android app. Google may provide us aggregated install and stability data.', 'Per Google’s own policies.', 'If you install from Google Play.'],
-    ],
-    'Third-party services'
-  )}
-<p>Each service has its own privacy policy. We share data with them only as described here, to run the features above. We do not share data for advertising.</p>
-
-<h2 id="visible">8. What other people can see</h2>
-<ul><li>Your <strong>display name and profile photo</strong> appear next to reviews you post.</li><li>Your profile photo is stored at a web address that is publicly readable if someone has the link.</li><li>Community highlights show anonymous counts only.</li></ul>
-
-<h2 id="security">9. Security</h2>
-<p>We use industry-standard services and safeguards, described on our <a href="/security/">Security</a> page: HTTPS for network traffic, Firebase Authentication, access rules on our database and storage, server-side verification of Premium status, and keeping API secrets on the server. No online service can promise absolute security.</p>
-
-<h2 id="retention">10. Retention and deletion</h2>
-<p><strong>While your account exists</strong> we keep the records in section 3. <strong>When you delete your account</strong> (in the app, or at <a href="/delete-account/">Account &amp; data deletion</a>), our server permanently deletes: your profile and everything under it (store library, AI counters, settings), your username record, any pending password-reset code, your reviews, your profile photo, and your sign-in account. Reports you filed against others are kept for moderation but no longer carry your identity.</p>
-<p><strong>What may remain:</strong> payment records held by Razorpay and by banks, which are kept under financial and legal rules and are not in our systems; anonymous community-highlight counts; cached AI answers that are not linked to you; and short-lived technical logs and residual copies that Google Cloud may keep for a limited period under its own policies. We do not intentionally keep separate long-term copies of your account data. Data on your device is removed by uninstalling the app or clearing browser data.</p>
-
-<h2 id="choices">11. Your choices and rights</h2>
-<p>You can use eBook Pro without an account, edit your name, photo and recovery details in My Account, turn community highlights and AI off in settings, and delete your account at any time. You may ask us for access to, correction of, or deletion of your data by emailing ${mail}. We will respond within a reasonable time and may need to verify that the request comes from you.</p>
-
-<h2 id="children">12. Children</h2>
-<p>eBook Pro is not directed at children under 13, and we do not knowingly collect their personal information. If you believe a child has created an account, contact us and we will delete it.</p>
-
-<h2 id="transfers">13. Where data is processed</h2>
-<p>Google Firebase and Google Cloud process data on servers that may be outside your country, including in the United States. Our AI function runs in Google Cloud’s us-central1 region. By using online features you understand your data may be transferred there.</p>
-
-<h2 id="website">14. This website</h2>
-<p>This website does not use cookies, advertising or analytics scripts, and its fonts are served from the site itself. Like any web host, the hosting provider (GitHub Pages) may log standard request data such as IP address. The <a href="/delete-account/">account deletion page</a> loads Google’s Firebase scripts so you can sign in to your account.</p>
-
-<h2 id="changes">15. Changes to this policy</h2>
-<p>When we change this policy we will update the date above and, for material changes, tell you in the app or on this site. Earlier versions are available on request.</p>
-
-<h2 id="contact">16. Contact</h2>
-<p>Privacy questions or requests: ${mail}<br>${site.developer.name}, ${site.developer.location}.</p>
+${toc(privacySections.map((s) => [s.id, esc(s.title.replace(/^\d+\. /, ''))]))}
+${privacySections.map((s) => `<h2 id="${s.id}">${esc(s.title)}</h2>\n${s.blocks.map(renderBlock).join('\n')}`).join('\n\n')}
 </div></section>`;
   return {
     path: '/privacy/',

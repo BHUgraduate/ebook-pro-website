@@ -76,7 +76,7 @@ export function home() {
     <div>
       <p class="eyebrow">AI-powered learning</p>
       <h2>Understand what you read</h2>
-      <p>Long-press a word for a definition, a Wikipedia summary, an on-device translation or to hear it read aloud. Premium readers can also ask Google’s Gemini to explain a passage in context. Today that is the only AI feature, and it is limited to ${premium.aiDailyLimit} requests a day.</p>
+      <p>Select text for a translation (English, Hindi and more), a Wikipedia summary in English or Hindi, a definition, or to hear it read aloud. Premium readers can also ask Google’s Gemini to explain a passage in context. Today that is the only AI feature, and it is limited to ${premium.aiDailyLimit} requests a day.</p>
       <p><a href="/ai/">How the AI works →</a></p>
     </div>
   </div>
@@ -111,7 +111,7 @@ export function home() {
   <div class="wrap">
     <div class="section-head"><h2>Free and Premium</h2></div>
     <div class="grid g2">
-      <div class="card"><h3>Free</h3><ul><li>Import and read PDF, EPUB and TXT</li><li>Highlights, flashcards, focus mode, streaks</li><li>On-device translation and listen mode</li><li>Browse the store; free store downloads with an account</li></ul></div>
+      <div class="card"><h3>Free</h3><ul><li>Import and read PDF, EPUB and TXT</li><li>Highlights, flashcards, focus mode, streaks</li><li>Translation (including Hindi), OCR and listen mode</li><li>Notes and the Edit / Write workspace, with export to PDF and EPUB</li><li>Browse the store; free store downloads with an account</li></ul></div>
       <div class="card"><h3>Premium — ${premium.priceDisplay}</h3><ul><li>AI explanations (up to ${premium.aiDailyLimit} per day)</li><li>Premium store books and newspapers</li><li>Paid once through ${premium.provider}; no automatic renewal today</li></ul><p><a href="/premium/">Premium details →</a></p></div>
     </div>
   </div>
@@ -162,7 +162,7 @@ ${featureGroups
     (g) => `<div id="${g.id}" class="reveal" style="margin-bottom:3rem"><h2>${esc(g.title)}</h2><p class="muted">${esc(g.intro)}</p><ul class="feature-list">${g.items.map(featureItem).join('')}</ul></div>`
   )
   .join('')}
-<div class="note"><strong>AI</strong><p>AI explanations are the only AI feature released today. Everything else listed under Learning, including translation, OCR and listen mode, runs on your device. See <a href="/ai/">AI</a>.</p></div>
+<div class="note"><strong>AI</strong><p>AI explanations are the only AI feature released today. Everything else listed under Learning, including OCR and listen mode, runs on your device, as does translation in the Android app (the web app uses an online translation service). See <a href="/ai/">AI</a>.</p></div>
 </div></section>
 ${ctaBand('Try it', 'Open the web app or get the Android app.', `${launchBtn()}${androidBtn()}`)}`;
   return { path: '/features/', title: 'Features', description: 'Everything eBook Pro does today: PDF, EPUB and TXT reading, highlights, flashcards, translation, listen mode, AI explanations, focus mode and streaks.', body, ld: [softwareLd] };
@@ -182,7 +182,7 @@ ${formatCols.map((c) => `<tr><th scope="row">${esc(c)}</th><td>${mark[f.rows[c][
   )
   .join('')}
 <h2>Not supported</h2><ul>${unsupported.map((u) => `<li>${esc(u)}</li>`).join('')}</ul>
-<div class="note"><strong>OCR</strong><p>OCR is used to search scanned PDF pages. It runs on your device (Google ML Kit, Latin script) on Android and iOS, and is not available in the web app.</p></div>
+<div class="note"><strong>OCR</strong><p>OCR reads scanned PDF pages and illustrations so their text can be selected, copied, searched and translated. It runs on your device (Google ML Kit, Latin and Devanagari scripts) on Android and is not available in the web app.</p></div>
 </div></section>`;
   return { path: '/formats/', title: 'Supported formats', description: 'PDF, EPUB 2/3 and TXT support in eBook Pro: import, reading, search, text extraction, images, layout, navigation, zoom and annotations, with limitations.', body };
 }
@@ -194,7 +194,7 @@ export function ai() {
 <h2>Available now</h2>
 <div class="card" style="margin-bottom:1rem"><h3>AI explanations ${status.premium}</h3><p>Select a passage and ask for an explanation. eBook Pro sends the selected text and its surrounding paragraph to a Google Cloud function that we run. That function verifies your account and Premium status, applies your daily limit, and asks a Google Gemini model to explain the passage concisely in the language you choose. The answer streams back to the app.</p></div>
 <h2>Runs on your device (not AI requests to us)</h2>
-<ul><li><strong>Translation</strong>: Google ML Kit, on-device. Models download on demand.</li><li><strong>OCR</strong>: Google ML Kit, on-device (Android, iOS).</li><li><strong>Listen (read aloud)</strong>: your device’s text-to-speech voices.</li><li><strong>Dictionary</strong>: a small bundled dictionary; Wikipedia lookups call Wikipedia.</li></ul>
+<ul><li><strong>Translation</strong>: Google ML Kit, on-device on Android (models download on demand); MyMemory online service in the web app.</li><li><strong>OCR</strong>: Google ML Kit, on-device (Android), Latin and Devanagari.</li><li><strong>Listen (read aloud)</strong>: your device’s text-to-speech voices.</li><li><strong>Dictionary</strong>: a small bundled dictionary; Wikipedia lookups call Wikipedia.</li></ul>
 <h2>Limits</h2>
 <div class="table-wrap"><table><thead><tr><th scope="col">Plan</th><th scope="col">AI explanations</th></tr></thead><tbody>
 <tr><td>Signed out</td><td>Not available</td></tr>
@@ -223,7 +223,7 @@ export function premiumPage() {
 <section><div class="wrap">
 <div class="grid g2" style="max-width:860px;margin:0 auto 2.5rem">
   <div class="card"><h2>Free</h2><p><strong>₹0</strong></p><ul>
-  <li>Import and read PDF, EPUB, TXT</li><li>Highlights, pen annotations, flashcards</li><li>On-device translation, OCR, listen mode</li><li>Dictionary and Wikipedia lookups</li><li>Focus mode, streaks, statistics</li><li>Browse the store; free store downloads with an account</li></ul></div>
+  <li>Import and read PDF, EPUB, TXT</li><li>Highlights, pen annotations, flashcards</li><li>Translation (on-device on Android), OCR in English and Hindi, listen mode</li><li>Notes, Edit / Write, collections and export</li><li>Dictionary and Wikipedia lookups</li><li>Focus mode, streaks, statistics</li><li>Browse the store; free store downloads with an account</li></ul></div>
   <div class="card" style="border-color:var(--accent)"><h2>Premium ${status.premium}</h2><p><strong>${premium.priceDisplay}</strong> · paid through ${premium.provider}</p><ul>
   <li>AI explanations, up to ${premium.aiDailyLimit} per day</li><li>Access to books and newspapers in the store that are marked premium</li></ul></div>
 </div>
@@ -265,7 +265,7 @@ export function webApp() {
 <h2>What it is</h2><p>The same reader and tools as the app, running in your browser. Import PDF, EPUB and TXT files, read, highlight, and sign in for store features.</p>
 <h2>What to know</h2>
 <ul><li>Imported books and reading data are stored in your browser. Clearing site data removes them, and they do not follow you to other browsers or devices.</li>
-<li>OCR (scanned-PDF search) and on-device translation are available in the Android app only.</li>
+<li>OCR (scanned pages) and on-device translation are available in the Android app only; the web app translates through an online service.</li>
 <li>AI explanations need a Premium account and an internet connection.</li></ul>
 <div class="btn-row">${launchBtn()}</div>
 </div></section>`;

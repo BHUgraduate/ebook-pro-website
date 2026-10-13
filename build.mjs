@@ -8,6 +8,7 @@ import { layout, abs } from './src/layout.mjs';
 import * as P from './src/pages/product.mjs';
 import { docsIndex, docPages, searchIndex } from './src/pages/docs.mjs';
 import * as L from './src/pages/legal.mjs';
+import { privacySections } from './src/content/privacy.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const out = (p, data) => { const f = join(root, p); mkdirSync(dirname(f), { recursive: true }); writeFileSync(f, data); };
@@ -34,6 +35,16 @@ cpSync(join(root, 'src/assets'), join(root, 'assets'), { recursive: true });
 if (existsSync(join(root, 'src/assets/screenshots/.gitkeep'))) rmSync(join(root, 'assets/screenshots/.gitkeep'));
 cpSync(join(root, 'src/assets/img/favicon.ico'), join(root, 'favicon.ico'));
 out('docs/search-index.json', JSON.stringify(searchIndex()));
+
+// The privacy policy as data. The app bundles a copy (assets/legal/privacy_policy.json) so its in-app
+// policy screen is the same text as /privacy/. After changing the policy: build, then copy this file.
+out('privacy-policy.json', JSON.stringify({
+  title: 'Privacy Policy',
+  updated: site.updated.privacy,
+  url: `${site.url}/privacy/`,
+  contact: site.supportEmail,
+  sections: privacySections,
+}, null, 1));
 
 // manifest
 out('manifest.webmanifest', JSON.stringify({
