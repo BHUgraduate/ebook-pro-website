@@ -25,7 +25,7 @@ export const privacySections = [
     blocks: [
       {
         ul: [
-          'You can read without an account. **Books you import, your reading progress, highlights, notes, flashcards and streaks stay on your device** (or in your browser for the web app). We do not upload them.',
+          'You can read without an account. **Books you import, your reading progress, highlights, notes, flashcards and streaks stay on your device** (or in your browser for the web app). We do not upload them unless you turn on optional Sync, which copies your notes and other work (not your books) to your account to keep your devices in step.',
           'If you create an account, we store your account details and a few account-related records online (see section 3).',
           'If you use **AI explanations** (Premium), the text you select and its surrounding paragraph are sent through our server to Google’s Gemini.',
           'On Android, **translation and OCR run on your device**. In the web app, translation is performed by an online translation service and the text you translate is sent to it (see sections 6 and 7).',
@@ -66,7 +66,15 @@ export const privacySections = [
     id: 'device',
     title: '4. Data that stays on your device',
     blocks: [
-      'The following are saved only on your device (in your browser for the web app) and are not sent to us: imported book files and web articles (with the address each came from), reading progress and position, highlights and pen annotations, **notes and handwriting you write (including exported files, which you save or share yourself)**, text recognised from scanned pages (OCR), translations made for bilingual reading (kept so a paragraph is not translated twice), flashcards and study schedule, **My Dictionary** (the words, meanings and notes you save), **voice notes** (the audio you record and any title or transcript you type), passages you save and the AI answers, translations and Wikipedia summaries you choose to keep, the collections, canvases and research workspaces you put these in, and the places in your books that saved items point to, search across your notes, highlights, cards and words (it runs on the device and sends nothing), reading streaks and statistics, and app settings. Files you export from the app (for example a flashcard or dictionary CSV) are created on your device and shared only where you choose. Uninstalling the app or clearing browser data removes them. We cannot recover them for you.',
+      'Unless you turn on **Sync** (off by default, see below), the following are saved only on your device (in your browser for the web app) and are not sent to us: imported book files and web articles (with the address each came from), reading progress and position, highlights and pen annotations, **notes and handwriting you write (including exported files, which you save or share yourself)**, text recognised from scanned pages (OCR), translations made for bilingual reading (kept so a paragraph is not translated twice), flashcards and study schedule, **My Dictionary** (the words, meanings and notes you save), **voice notes** (the audio you record and any title or transcript you type), passages you save and the AI answers, translations and Wikipedia summaries you choose to keep, the collections, canvases and research workspaces you put these in, and the places in your books that saved items point to, search across your notes, highlights, cards and words (it runs on the device and sends nothing), reading streaks and statistics, and app settings. Files you export from the app (for example a flashcard or dictionary CSV) are created on your device and shared only where you choose. Uninstalling the app or clearing browser data removes them. We cannot recover them for you.',
+    ],
+  },
+  {
+    id: 'sync',
+    title: '4a. Optional cloud sync',
+    blocks: [
+      'If you turn on **Settings → Sync** while signed in, the app copies your **notes and highlights, note folders, flashcards, My Dictionary, collections, saved passages and AI answers, the links between them, canvases, research workspaces and voice notes (including the audio)** to your account in Google Firebase (Cloud Firestore, and Cloud Storage for voice audio), and keeps your signed-in devices in step. Changes made offline are uploaded later. Each item carries the time it changed and an identifier of the device that changed it, used only to merge edits; if the same note is changed on two devices, both versions are kept.',
+      '**Not synced:** book and article files, reading positions, pen marks, images inside notes, statistics and the translation cache. Synced data is visible only to your account (enforced by security rules) and is not used for anything else. Turning Sync off stops further syncing; deleting your account removes the synced copy, including voice audio. A device stays tied to the first account it synced with; another account can use it only after you confirm.',
     ],
   },
   {
