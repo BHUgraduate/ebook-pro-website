@@ -2,6 +2,35 @@
 // Only list things that were implemented AND verified (tests or on-device) for that release.
 export const changelog = [
   {
+    version: '1.4.0 (build 7)',
+    date: '2026-10-14',
+    kind: 'App',
+    added: [
+      'Knowledge canvas: lay out notes, highlights, saved passages, AI answers, voice notes, books and collections as cards, connect them with labelled links, and open any card at its source.',
+      'Voice notes: record about a page or attach to a note or highlight, with pause/resume, waveform playback, title, transcript and sharing.',
+      'Research workspaces: several documents, a research question, everything marked in them, full-text search across them, side-by-side comparison, pinned passages, and AI answers with numbered citations (Premium).',
+      'Import web articles from a web address, with images, author, date and a link to the original, to read offline.',
+      'Word (.docx) export for notes, collections and research workspaces.',
+      'Bilingual reading: a chapter or PDF page with its translation, side by side on tablets.',
+      'AI summaries of a page, a chapter or a whole book (Premium), saved with their source.',
+      'Optional cloud sync of your notes and knowledge across devices (Settings → Sync), offline first, keeping both versions when a note was edited on two devices.',
+      'EPUB: select a passage (long-press and drag) to highlight it, note it, save it, translate or explain it; tappable links and footnotes.',
+      'Bookmarks for PDF and EPUB.',
+      'Save a passage from the selection toolbar; collections can now hold notes, highlights, cards, words, passages and voice notes.',
+      'Sanskrit is recognised and translated with AI (Premium) instead of being treated as Hindi.',
+    ],
+    changed: [
+      'Search everything also finds saved passages, AI answers and voice notes.',
+      'Deleting a book also removes its reading position and pen marks; your notes, highlights, cards and passages from it are kept.',
+      'The store shelf “Premium Reads” is now called “Books to Buy”: Premium unlocks AI, and books are bought one by one.',
+    ],
+    fixed: [
+      'Pen marks drawn on PDF pages were lost when you turned the page or closed the book. They are now saved and shown while reading.',
+      'Password-protected PDFs failed with an unclear error; the app now explains that they cannot be opened yet and how to import an unprotected copy.',
+      'Store ratings from before version 1.2 now count in each book’s rating.',
+    ],
+  },
+  {
     version: '1.3.0 (build 6)',
     date: '2026-10-14',
     kind: 'App',
