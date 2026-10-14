@@ -2,6 +2,31 @@
 // Only list things that were implemented AND verified (tests or on-device) for that release.
 export const changelog = [
   {
+    version: '1.3.0 (build 6)',
+    date: '2026-10-14',
+    kind: 'App',
+    added: [
+      'Search everything: one search (Ctrl or Cmd + K, or the search button) across books, notes, highlights, flashcards and your dictionary. Results show where they came from and open the exact page. It also works as a command palette.',
+      'My Dictionary: save words with a meaning, example, your own note and the page you found them on. Search, edit, export and turn words into flashcards.',
+      'Your Cards: every flashcard from every book in one place, with a combined review of everything due. Cards remember the page they came from and can reopen it.',
+      'On the selection card, a translation, an AI answer or a Wikipedia summary can be saved as a note, turned into a flashcard, or kept as a word, all linked to the book and page. The translation now shows the original text above the translated text.',
+      'AI modes for Premium: Explain, Simplify, Summarize and Examples. Answers are labelled as generated.',
+      'Smart collections in the Library: Currently reading, Not started, Unfinished, Finished, Recently opened, Recently annotated, 10+ highlights and With notes.',
+      'Reading dashboard: reading time, books, notes, highlights, words and cards due.',
+      'Export flashcards and dictionary words as CSV (Hindi included).',
+      'Tools menu on Home and Library, so Edit / Write, Your Cards, My Dictionary, the dashboard, collections and Settings are reachable in portrait as well.',
+    ],
+    changed: [
+      'Flashcards created from the reader, notes, translations, AI answers and dictionary words are all stored with their source.',
+      'Premium no longer opens paid store books in storage: paid books are bought one by one, as the app already required.',
+    ],
+    fixed: [
+      'Edit / Write, collections and Settings could only be reached by a landscape-only swipe. They are now available from the Tools button in any orientation.',
+      'The Your Cards entry in the side menu only said "coming soon"; it now opens a real screen.',
+      'Any signed-in user could replace another user\u2019s profile photo in cloud storage. Only the owner can now change it.',
+    ],
+  },
+  {
     version: '1.2.0 (build 5)',
     date: '2026-10-14',
     kind: 'App',
