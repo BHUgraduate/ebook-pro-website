@@ -226,7 +226,7 @@
        [
         "Web pages you import (Android app)",
         "Saves an article you choose to your library, to read offline.",
-        "The app downloads the page you entered directly from its website, which sees a normal request (such as your IP address), as when you open it in a browser. The address and the page do not go through our servers.",
+        "The app downloads the page you entered, and the article’s images, directly from the website (and the image hosts it uses), which see a normal request (such as your IP address), as when you open it in a browser. The address and the page do not go through our servers.",
         "Only when you import a web page."
        ],
        [
