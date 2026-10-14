@@ -2,6 +2,37 @@
 // Only list things that were implemented AND verified (tests or on-device) for that release.
 export const changelog = [
   {
+    version: '1.2.0 (build 5)',
+    date: '2026-10-14',
+    kind: 'App',
+    added: [
+      'Wishlist: books you mark with a heart are saved to your account and stay hearted after a refresh, a restart or a new phone. A "Your Wishlist" shelf appears at the top of the Store.',
+      'Share a book with a link: it opens that exact book in eBook Pro if your friend has the app, and otherwise leads to a page that points them to the download.',
+      'Daily reading reminder (Settings > Notifications): choose the time; it is skipped on days you have already reached your goal. Update alerts tell you when a new version is available.',
+      'Contents list for PDFs: a PDF\u2019s own outline is now shown, with page numbers, and the section you are reading is highlighted for both PDFs and EPUBs.',
+      'Store search for Hindi and other scripts, with suggestions (trending topics and popular authors) built from the real catalogue instead of a fixed list.',
+      'Restore purchase, on the Premium screen, for a payment that did not register.',
+      'Flashcards: the next review interval is shown on each answer button, a card you miss comes back again in the same session, and a summary ends the session.',
+      'Password rules for username accounts (at least 8 characters, not a common password, not your username).',
+    ],
+    changed: [
+      'The drawing toolbar now sits above the bottom edge, always fits on screen in portrait and landscape, and shows colours and thickness at a glance.',
+      'The app now draws behind the status and navigation bars on every Android version, so there are no black strips at the top or bottom of any screen.',
+      'Ratings: each reader counts once (their latest rating) and the average and count are calculated by our server, so they stay right after edits and deletions.',
+      'The Premium screen was rewritten to say exactly what Premium unlocks (AI explanations, up to ' + '20' + ' a day), that it is a single \u20b99 payment with no renewal, and that everything else stays free.',
+      'The default daily reading goal is 15 minutes (5 minutes is now an option), so a streak is easier to keep.',
+    ],
+    fixed: [
+      'Premium readers were told to upgrade when they used AI explanations: the payment confirmation could be rejected by our server, so Premium was never switched on. Payments are now verified directly and the price is set by the server.',
+      'Hearts in the Store were forgotten on refresh.',
+      'The author page showed an invented 4.8 rating and unrelated books when nothing matched; it now shows only that author\u2019s books and "No ratings yet" when there are none.',
+      'Language filters on Store search returned nothing from Open Library (it needs three-letter language codes).',
+      'A Streak Freeze was spent again on every refresh, so a saved streak could break a minute later; a freeze is now used once per missed day.',
+      'Flashcards created from Hindi text were cut in the wrong place because the Hindi sentence mark was not recognised.',
+      'Review names and photos: other readers can no longer read your email or phone number from your profile.',
+    ],
+  },
+  {
     version: '1.1.1 (build 4)',
     date: '2026-10-14',
     kind: 'App',

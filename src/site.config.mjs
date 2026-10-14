@@ -22,8 +22,8 @@ export const site = {
   // Current release of the app. MUST match pubspec.yaml `version:` in the app repository
   // (name+code); the app has a test that checks its own constants against pubspec.
   app: {
-    version: '1.1.1',
-    versionCode: 4,
+    version: '1.2.0',
+    versionCode: 5,
     releasedOn: '2026-10-14',
   },
 
@@ -39,7 +39,7 @@ export const site = {
   // Real "Last updated" dates (ISO). Bump when the page text materially changes.
   updated: {
     site: '2026-10-11', // general site content (used for sitemap lastmod)
-    privacy: '2026-10-13',
+    privacy: '2026-10-14',
     terms: '2026-10-11',
     refund: '2026-10-11',
     deletion: '2026-10-11',

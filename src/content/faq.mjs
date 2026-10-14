@@ -18,6 +18,6 @@ export const faq = [
   { q: 'How do I delete my account?', a: '<p>In the app: Settings → My Account → Delete My Account. Or on the web at <a href="/delete-account/">Account &amp; data deletion</a>. Both permanently delete your account.</p>' },
   { q: 'Is eBook Pro available on Android?', a: '<p>Yes, Android is the primary platform and the app is being prepared for Google Play. See <a href="/download/">Download</a> for the current status.</p>' },
   { q: 'Is it available on iPhone and iPad?', a: '<p>Not yet. There is no iOS release, and we will not list an App Store link until there is.</p>' },
-  { q: 'How does Premium work?', a: `<p>Premium costs ${premium.priceDisplay} and is paid through ${premium.provider} (UPI, cards, netbanking, wallets). It unlocks AI explanations (up to ${premium.aiDailyLimit} per day) and premium store content. See <a href="/premium/">Premium</a> for billing, cancellation and refund details.</p>` },
+  { q: 'How does Premium work?', a: `<p>Premium costs ${premium.priceDisplay} and is paid through ${premium.provider} (UPI, cards, netbanking, wallets). It unlocks AI explanations (up to ${premium.aiDailyLimit} per day). Paid store books are bought one by one and are not part of Premium. See <a href="/premium/">Premium</a> for billing, cancellation and refund details.</p>` },
   { q: 'How do I contact support?', a: `<p>Email <a href="mailto:${site.supportEmail}">${site.supportEmail}</a>. See <a href="/support/">Support</a> for what to include.</p>` },
 ];

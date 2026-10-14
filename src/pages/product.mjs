@@ -112,7 +112,7 @@ export function home() {
     <div class="section-head"><h2>Free and Premium</h2></div>
     <div class="grid g2">
       <div class="card"><h3>Free</h3><ul><li>Import and read PDF, EPUB and TXT</li><li>Highlights, flashcards, focus mode, streaks</li><li>Translation (including Hindi), OCR and listen mode</li><li>Notes and the Edit / Write workspace, with export to PDF and EPUB</li><li>Browse the store; free store downloads with an account</li></ul></div>
-      <div class="card"><h3>Premium — ${premium.priceDisplay}</h3><ul><li>AI explanations (up to ${premium.aiDailyLimit} per day)</li><li>Premium store books and newspapers</li><li>Paid once through ${premium.provider}; no automatic renewal today</li></ul><p><a href="/premium/">Premium details →</a></p></div>
+      <div class="card"><h3>Premium — ${premium.priceDisplay}</h3><ul><li>AI explanations (up to ${premium.aiDailyLimit} per day), in the reader and in your notes</li><li>Paid once through ${premium.provider}; no renewal, nothing to cancel</li><li>Everything else on this page stays free</li></ul><p><a href="/premium/">Premium details →</a></p></div>
     </div>
   </div>
 </section>
@@ -225,14 +225,14 @@ export function premiumPage() {
   <div class="card"><h2>Free</h2><p><strong>₹0</strong></p><ul>
   <li>Import and read PDF, EPUB, TXT</li><li>Highlights, pen annotations, flashcards</li><li>Translation (on-device on Android), OCR in English and Hindi, listen mode</li><li>Notes, Edit / Write, collections and export</li><li>Dictionary and Wikipedia lookups</li><li>Focus mode, streaks, statistics</li><li>Browse the store; free store downloads with an account</li></ul></div>
   <div class="card" style="border-color:var(--accent)"><h2>Premium ${status.premium}</h2><p><strong>${premium.priceDisplay}</strong> · paid through ${premium.provider}</p><ul>
-  <li>AI explanations, up to ${premium.aiDailyLimit} per day</li><li>Access to books and newspapers in the store that are marked premium</li></ul></div>
+  <li>AI explanations, up to ${premium.aiDailyLimit} per day, in the reader and in your notes</li><li>Restore purchase on the Premium screen if a payment did not register</li><li>Paid store books are bought one by one and are not part of Premium</li></ul></div>
 </div>
 <div class="prose" style="margin:0 auto">
 <h2>Billing</h2>
 <p>Premium is bought inside the app on the Upgrade screen. Payment is handled by ${premium.provider} and supports UPI, cards, net banking and wallets. We never see or store your card or UPI details. The app passes your email and phone number to the checkout only to pre-fill it.</p>
 <h2>Renewal and cancellation</h2>
 <p>The app currently takes a single ${premium.priceDisplay} payment and then activates Premium on your account. It does <strong>not</strong> set up automatic renewals, so there is nothing to cancel and you are not charged again automatically. If we introduce recurring billing or an expiry, we will say so clearly before you pay and update this page and the <a href="/refund-policy/">Refund &amp; cancellation policy</a>.</p>
-<div class="note warn"><strong>About the wording in the app</strong><p>The Upgrade screen labels Premium as “monthly”. The payment system behind it is currently a one-time payment with no renewal logic. We are aligning the app and the payment system; until then, this page describes the behaviour that actually happens.</p></div>
+
 <h2>Refunds</h2>
 <p>Purchases are generally final. Exceptions (failed activation, duplicate charge) are in the <a href="/refund-policy/">Refund &amp; cancellation policy</a>.</p>
 <h2>If you delete your account</h2>

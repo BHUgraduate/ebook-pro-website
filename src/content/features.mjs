@@ -54,6 +54,7 @@ export const featureGroups = [
     items: [
       { name: 'Edit / Write workspace', status: 'available', text: 'A rich-text editor with headings, lists, checklists, quotes, code, tables, images, handwriting, six paper styles, autosave, undo/redo and find and replace. Open it from the bookshelf menu (landscape).' },
       { name: 'Notes linked to your books', status: 'available', text: 'Turn a selection into a highlight or a note. Notes remember the exact place in the PDF or EPUB, show as markers on the page, and take you back with one tap.' },
+      { name: 'Wishlist and sharing', status: 'available', text: 'Heart a store book to keep it on your wishlist, synced to your account. Share a book with a link that opens it in the app, or sends your friend to the download.' },
       { name: 'Collections, tags and folders', status: 'available', text: 'Group books into collections; organise notes with folders, tags, favourites and pins; search across all notes, including Hindi.' },
       { name: 'Export', status: 'available', text: 'Export notes as TXT, Markdown, PDF or EPUB. Hindi notes are exported with correct letter shaping and fonts.' },
     ],

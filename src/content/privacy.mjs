@@ -48,12 +48,13 @@ export const privacySections = [
             ['Account', 'Sign-in identifier (email, phone number or username), display name, optional recovery email and recovery phone, account ID, creation time. For Google sign-in, the profile details Google returns.', 'Create and secure your account; account recovery; show your name on reviews.', 'Google Firebase Authentication and Cloud Firestore'],
             ['Password', 'Handled by Firebase Authentication. We cannot read it. Username accounts use an internal “shadow” email address created by the app.', 'Authentication.', 'Firebase Authentication'],
             ['Profile photo (optional)', 'An image you choose, uploaded from your photo library.', 'Show your avatar.', 'Firebase Storage (the image link is publicly readable)'],
-            ['Store library', 'Which store books or newspapers you saved or bought.', 'Let you re-open books you own.', 'Cloud Firestore'],
+            ['Store library and wishlist', 'Which store books or newspapers you saved or bought, and the books you marked with a heart (your wishlist: the book’s catalogue details and when you added it).', 'Let you re-open books you own and keep your wishlist when you refresh, reinstall or change device.', 'Cloud Firestore'],
+            ['Public profile', 'Your username, display name and profile photo link, copied to a separate public record so it can be shown next to your reviews. It holds no email, phone number or Premium status.', 'Show your name on reviews without exposing private details.', 'Cloud Firestore'],
             ['Reviews and reports', 'Review text and rating you post; reports you file against a review.', 'Show reviews; moderate abuse.', 'Cloud Firestore'],
             ['Community highlights (optional)', 'When you share a highlight in a store book: the book, and the character range. The count of readers who highlighted a range is stored; your identity is not.', 'Show popular passages.', 'Cloud Firestore'],
             ['AI request data', 'Selected text, surrounding paragraph, language, your sign-in token (see section 6). A per-day request counter is saved to your account.', 'Provide AI explanations and enforce limits.', 'Processed by Google Cloud Functions and Google Gemini; counter in Firestore'],
-            ['Premium status and payment', 'A Premium flag and activation time on your account. Payment is made through Razorpay; we receive confirmation that a payment succeeded, not your card or UPI details. Your email and phone are passed to Razorpay checkout to pre-fill it.', 'Activate Premium; support.', 'Cloud Firestore; payment records are held by Razorpay'],
-            ['Notification setting', 'If you turn on notifications, the app asks the operating system for permission and uses Firebase Cloud Messaging.', 'Optional notifications.', 'Google Firebase Cloud Messaging'],
+            ['Premium status and payment', 'A Premium flag and activation time on your account. Payment is made through Razorpay; we receive confirmation that a payment succeeded, not your card or UPI details. Your email and phone are passed to Razorpay checkout to pre-fill it. Our server keeps a minimal record of each verified payment (payment and order ID, amount, what was bought and your account ID) so a purchase can be checked, restored and refunded.', 'Activate Premium or unlock a paid book; restore a purchase; support and accounting.', 'Cloud Firestore; payment details are held by Razorpay'],
+            ['Notifications', 'Daily reading reminders are scheduled on your device and use your reminder time and whether you have reached today’s reading goal; nothing about them is sent to us. If you keep update alerts on, your device subscribes to a Firebase Cloud Messaging topic so we can announce new versions. The app asks the operating system for permission first, and you can turn either off in Settings.', 'Optional reminders and update alerts.', 'On your device; Google Firebase Cloud Messaging for update alerts'],
             ['Search and lookups', 'Text you type into store search, a word or phrase you look up on Wikipedia, and — in the web app only — text you translate (see section 7).', 'Return results.', 'Sent to the services listed in section 7; not stored by us'],
           ],
         },
@@ -128,7 +129,7 @@ export const privacySections = [
     blocks: [
       {
         ul: [
-          'Your **display name and profile photo** appear next to reviews you post.',
+          'Your **display name, username and profile photo** appear next to reviews you post, from a separate public profile record. Your email address, phone number, wishlist and Premium status are private to your account.',
           'Your profile photo is stored at a web address that is publicly readable if someone has the link.',
           'Community highlights show anonymous counts only.',
         ],
@@ -146,8 +147,8 @@ export const privacySections = [
     id: 'retention',
     title: '10. Retention and deletion',
     blocks: [
-      '**While your account exists** we keep the records in section 3. **When you delete your account** (in the app, or at [Account & data deletion](/delete-account/)), our server permanently deletes: your profile and everything under it (store library, AI counters, settings), your username record, any pending password-reset code, your reviews, your profile photo, and your sign-in account. Reports you filed against others are kept for moderation but no longer carry your identity.',
-      '**What may remain:** payment records held by Razorpay and by banks, which are kept under financial and legal rules and are not in our systems; anonymous community-highlight counts; cached AI answers that are not linked to you; and short-lived technical logs and residual copies that Google Cloud may keep for a limited period under its own policies. We do not intentionally keep separate long-term copies of your account data. Data on your device is removed by uninstalling the app or clearing browser data.',
+      '**While your account exists** we keep the records in section 3. **When you delete your account** (in the app, or at [Account & data deletion](/delete-account/)), our server permanently deletes: your profile and everything under it (store library, wishlist, AI counters, settings), your public profile, your username record, any pending password-reset code, your reviews, your profile photo, and your sign-in account. Reports you filed against others are kept for moderation but no longer carry your identity.',
+      '**What may remain:** payment records held by Razorpay and by banks, which are kept under financial and legal rules; the minimal payment record our server keeps for each verified payment (payment and order ID, amount, what was bought and your account ID), kept for accounting, refunds and legal reasons; anonymous community-highlight counts; cached AI answers that are not linked to you; and short-lived technical logs and residual copies that Google Cloud may keep for a limited period under its own policies. We do not intentionally keep separate long-term copies of your account data. Data on your device is removed by uninstalling the app or clearing browser data.',
     ],
   },
   {
