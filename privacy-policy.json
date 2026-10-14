@@ -142,6 +142,7 @@
    "title": "6. AI, translation and OCR",
    "blocks": [
     "**AI explanations** are available to Premium accounts. When you request one, the app sends the selected text, its surrounding paragraph, the output language, what you asked for (explain, simplify, summarize or examples) and your sign-in token over HTTPS to a Google Cloud function that we operate. The function verifies your account and Premium status, counts the request against your daily limit (20 per day), and sends the text to a Google Gemini model to produce the explanation. The Gemini API key is held on our server, not in the app.",
+    "**AI summaries** (Premium) work the same way through a second function. For a page or a chapter the app sends that page's or chapter's text (a very long chapter in parts); for a whole book it never sends the book: it sends the table of contents with, for each chapter, either the summary you already made of it or the chapter's opening passage. **AI research answers** in a research workspace send your question and numbered excerpts from the workspace's documents. Each request counts against the same daily limit (a whole-book summary counts as 3, a research answer as 2). Summaries and answers are saved in the app on your device so asking again does not resend anything.",
     "To avoid repeating identical requests, the function caches the answer in Firestore under a one-way hash of the text, context, language and the kind of answer asked for. The cache holds the answer text and a timestamp, not your account ID. Google handles data sent to the Gemini API under its own terms; please review Google’s documentation. Please do not select sensitive personal information. See also [AI](/ai/).",
     "**Translation.** In the Android app, translation runs on your device with Google ML Kit; the selected text is not sent to us or to a translation server. The first time you use a language, its model is downloaded from Google. In the **web app**, on-device models are not available, so when you tap Translate the selected text is sent over HTTPS to the MyMemory translation service (api.mymemory.translated.net), which returns the translation. It is not sent to our servers.",
     "**OCR** (reading text from scanned pages and images, including Hindi/Devanagari) and **read-aloud** run on your device and do not send your pages or text to us."
@@ -182,9 +183,9 @@
        ],
        [
         "Google Gemini API",
-        "Generates AI explanations.",
-        "Selected text and surrounding paragraph (via our server).",
-        "Only if you use AI explanations (Premium)."
+        "Generates AI explanations, summaries and research answers.",
+        "Selected text and surrounding paragraph; for summaries the page or chapter text, or a book’s contents with chapter summaries or openings; for research answers your question and the selected excerpts (all via our server).",
+        "Only if you use AI features (Premium)."
        ],
        [
         "Google ML Kit",
