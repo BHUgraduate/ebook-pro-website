@@ -22,7 +22,7 @@ export const premiumFeatures = [
   { title: 'Research workspaces', detail: 'Study several books and articles together: search across all of them, compare passages side by side, pin evidence and ask AI questions answered with citations.' },
   { title: 'Bilingual reading', detail: 'Read a chapter or a PDF page paragraph by paragraph next to its translation, side by side on tablets.' },
   { title: 'Word export', detail: 'Export notes, collections and research workspaces as Word documents (.docx) with headings, tables, images and citations.' },
-  { title: 'Cloud sync', detail: 'Keep notes, highlights, cards, words, collections, canvases, workspaces and voice notes in step across your devices.' },
+  { title: 'Cloud sync', detail: 'Keep notes, highlights, cards, words, collections, canvases, workspaces and voice notes in step across your devices, with 500 MB of cloud storage for your files.' },
 ];
 
 /** What happens when Premium ends: shown wherever Premium is described. */

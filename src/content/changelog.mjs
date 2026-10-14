@@ -2,6 +2,17 @@
 // Only list things that were implemented AND verified (tests or on-device) for that release.
 export const changelog = [
   {
+    version: '1.5.1 (build 9)',
+    date: '2026-10-14',
+    kind: 'App',
+    added: [
+      'Cloud storage for Premium: 500 MB per account for synced files (voice note audio). Settings → Sync shows used, total and remaining storage, and lets you delete cloud files, which frees the space at once.',
+    ],
+    changed: [
+      'Free accounts keep files on this device only. If cloud files are over the limit (for example after Premium ends), nothing is deleted; new uploads wait until there is room, and recordings that waited upload by themselves once there is.',
+    ],
+  },
+  {
     version: '1.5.0 (build 8)',
     date: '2026-10-14',
     kind: 'App',

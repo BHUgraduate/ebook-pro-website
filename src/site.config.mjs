@@ -22,8 +22,8 @@ export const site = {
   // Current release of the app. MUST match pubspec.yaml `version:` in the app repository
   // (name+code); the app has a test that checks its own constants against pubspec.
   app: {
-    version: '1.5.0',
-    versionCode: 8,
+    version: '1.5.1',
+    versionCode: 9,
     releasedOn: '2026-10-14',
   },
 
