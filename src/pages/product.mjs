@@ -129,7 +129,7 @@ export function home() {
 <section class="alt reveal">
   <div class="wrap narrow">
     <div class="section-head"><h2>Latest update</h2></div>
-    <div class="card"><h3>${esc(changelog[0].version)} <span class="muted small">· ${fmtDate(changelog[0].date)}</span></h3><p>${esc(changelog[0].added[0])}</p><p><a href="/changelog/">Read the changelog →</a></p></div>
+    <div class="card"><h3>${esc(changelog[0].version)} <span class="muted small">· ${fmtDate(changelog[0].date)}</span></h3><p>${esc(changelog[0].added?.[0] || changelog[0].fixed?.[0] || changelog[0].changed?.[0] || "")}</p><p><a href="/changelog/">Read the changelog →</a></p></div>
   </div>
 </section>
 

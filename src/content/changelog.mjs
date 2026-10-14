@@ -2,6 +2,21 @@
 // Only list things that were implemented AND verified (tests or on-device) for that release.
 export const changelog = [
   {
+    version: '1.1.1 (build 4)',
+    date: '2026-10-14',
+    kind: 'App',
+    added: [],
+    changed: [
+      'If you open a sign-in link on a device that did not request it (for example, a link emailed to you but opened on another phone), eBook Pro now asks you to confirm your email address instead of doing nothing.',
+    ],
+    fixed: [
+      'Email sign-in links (magic links) now open eBook Pro and sign you in. The release signing key was not registered for the app’s sign-in link domain, so Android opened the link in the browser instead of the app.',
+      'Sign-in link errors (expired, already used, wrong email, no connection) now show a clear message instead of failing silently.',
+      'A sign-in link is redeemed once, and screens such as the phone-code screen are closed after you are signed in.',
+      'Web app: opening an email sign-in link in the browser now completes the sign-in.',
+    ],
+  },
+  {
     version: '1.1.0 (build 3)',
     date: '2026-10-13',
     kind: 'App',
