@@ -22,8 +22,8 @@ export const site = {
   // Current release of the app. MUST match pubspec.yaml `version:` in the app repository
   // (name+code); the app has a test that checks its own constants against pubspec.
   app: {
-    version: '1.4.0',
-    versionCode: 7,
+    version: '1.5.0',
+    versionCode: 8,
     releasedOn: '2026-10-14',
   },
 
@@ -38,12 +38,12 @@ export const site = {
 
   // Real "Last updated" dates (ISO). Bump when the page text materially changes.
   updated: {
-    site: '2026-10-11', // general site content (used for sitemap lastmod)
+    site: '2026-10-14', // general site content (used for sitemap lastmod)
     privacy: '2026-10-14',
-    terms: '2026-10-11',
-    refund: '2026-10-11',
+    terms: '2026-10-14',
+    refund: '2026-10-14',
     deletion: '2026-10-11',
-    security: '2026-10-11',
+    security: '2026-10-14',
   },
 
   // Public Firebase *web* config (identifiers, not secrets: they ship inside
@@ -58,10 +58,13 @@ export const site = {
   },
 };
 
-// Premium facts, verified against upgrade_screen.dart, payment_service.dart,
-// functions/index.js (Razorpay order + webhook) and functions/quota.
+// Premium facts, verified against lib/core/billing/premium.dart (PremiumPlan), upgrade_screen.dart,
+// functions/payments/subscription.js (₹9 monthly plan, Razorpay Subscriptions) and functions/quota.
+// Premium is a subscription: always show the price with its period (pricePerPeriod), never a bare price.
 export const premium = {
   priceDisplay: '₹9',
+  period: 'month',
+  pricePerPeriod: '₹9/month',
   currency: 'INR',
   aiDailyLimit: 20, // functions/quota/quotaService.js DAILY_LIMIT
   provider: 'Razorpay',

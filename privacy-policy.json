@@ -91,10 +91,10 @@
         "Processed by Google Cloud Functions and Google Gemini; counter in Firestore"
        ],
        [
-        "Premium status and payment",
-        "A Premium flag and activation time on your account. Payment is made through Razorpay; we receive confirmation that a payment succeeded, not your card or UPI details. Your email and phone are passed to Razorpay checkout to pre-fill it. Our server keeps a minimal record of each verified payment (payment and order ID, amount, what was bought and your account ID) so a purchase can be checked, restored and refunded.",
-        "Activate Premium or unlock a paid book; restore a purchase; support and accounting.",
-        "Cloud Firestore; payment details are held by Razorpay"
+        "Premium subscription and payments",
+        "Your Premium status as our server records it: whether Premium is on, the date the paid month ends, the subscription state (active, payment failed, cancelled), the Razorpay subscription ID and whether it will renew. Premium is a ₹9/month subscription through Razorpay; we receive confirmation of each payment, not your card or UPI details, and Razorpay holds the recurring-payment mandate. Your email and phone are passed to Razorpay checkout to pre-fill it. Our server keeps a minimal record of each verified payment (payment, order or subscription ID, amount, what was bought and your account ID) so it can be checked, restored and refunded.",
+        "Turn Premium on and off as the subscription is paid, renewed, cancelled or ends; unlock a paid book; restore purchases; support and accounting.",
+        "Cloud Firestore; payment and mandate details are held by Razorpay"
        ],
        [
         "Notifications",
@@ -125,7 +125,7 @@
    "id": "sync",
    "title": "4a. Optional cloud sync",
    "blocks": [
-    "If you turn on **Settings → Sync** while signed in, the app copies your **notes and highlights, note folders, flashcards, My Dictionary, collections, saved passages and AI answers, the links between them, canvases, research workspaces and voice notes (including the audio)** to your account in Google Firebase (Cloud Firestore, and Cloud Storage for voice audio), and keeps your signed-in devices in step. Changes made offline are uploaded later. Each item carries the time it changed and an identifier of the device that changed it, used only to merge edits; if the same note is changed on two devices, both versions are kept.",
+    "Sync is part of **Premium**. If you turn on **Settings → Sync** while signed in, the app copies your **notes and highlights, note folders, flashcards, My Dictionary, collections, saved passages and AI answers, the links between them, canvases, research workspaces and voice notes (including the audio)** to your account in Google Firebase (Cloud Firestore, and Cloud Storage for voice audio), and keeps your signed-in devices in step. Changes made offline are uploaded later. Each item carries the time it changed and an identifier of the device that changed it, used only to merge edits; if the same note is changed on two devices, both versions are kept.",
     "**Not synced:** book and article files, reading positions, pen marks, images inside notes, statistics and the translation cache. Synced data is visible only to your account (enforced by security rules) and is not used for anything else. Turning Sync off stops further syncing; deleting your account removes the synced copy, including voice audio. A device stays tied to the first account it synced with; another account can use it only after you confirm."
    ]
   },
@@ -215,9 +215,9 @@
        ],
        [
         "Razorpay",
-        "Takes Premium payments.",
-        "Payment details you enter at checkout; pre-filled email and phone.",
-        "Only if you buy Premium."
+        "Takes Premium subscription payments (₹9 every month until cancelled) and paid-book payments; holds the recurring-payment mandate.",
+        "Payment details you enter at checkout; pre-filled email and phone; your account ID on the subscription so our server can match it to you.",
+        "Only if you subscribe to Premium or buy a book."
        ],
        [
         "Wikipedia (Wikimedia): en.wikipedia.org and hi.wikipedia.org",

@@ -64,10 +64,10 @@
   </div>
 </section>
 <section><div class="wrap narrow prose">
-<p class="updated">Last updated: <time datetime="2026-10-11">11 October 2026</time></p>
+<p class="updated">Last updated: <time datetime="2026-10-14">14 October 2026</time></p>
 <h2>Authentication</h2><p>Sign-in is handled by Google Firebase Authentication (email and password, phone one-time code, username and password, or Google). We never see or store your password. Our server checks your sign-in token on every AI request. Password-reset codes for username accounts expire after 15 minutes.</p>
 <h2>Secure communication</h2><p>The apps talk to our backend and to the third-party services listed in the <a href="/privacy/">Privacy Policy</a> over HTTPS.</p>
-<h2>Cloud data and access control</h2><p>Account data lives in Firebase (Firestore and Storage), protected by security rules that restrict who can read and write. Your Premium status can only be set by our server after a verified payment, not by the app. Payment checkout orders are created on our server, and payment confirmations are verified by signature before Premium is activated.</p>
+<h2>Cloud data and access control</h2><p>Account data lives in Firebase (Firestore and Storage), protected by security rules that restrict who can read and write. Your Premium status can only be set by our server, never by the app: subscriptions are created on our server, payment confirmations are verified by signature, and the subscription’s state (paid until, renewed, cancelled) is read from Razorpay by our server. The same check runs on our server and in the database rules, so changing the app cannot unlock Premium.</p>
 <h2>Secrets</h2><p>The Gemini API key and payment secret keys are kept on the server, never in the app or this website.</p>
 <h2>AI data handling</h2><p>AI requests are sent to Google’s Gemini through our server, as described on the <a href="/ai/">AI page</a>.</p>
 <h2>Data on your device</h2><p>Books and reading data are stored in the app’s private storage on your device. Protect your device with a screen lock.</p>

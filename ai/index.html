@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI — eBook Pro</title>
-<meta name="description" content="What AI does in eBook Pro today: Premium AI explanations through Google Gemini, with a 20-per-day limit, and which features run on your device instead.">
+<meta name="description" content="AI in eBook Pro Premium (₹9/month): explanations, page/chapter/book summaries and cited research answers through Google Gemini, 20 requests a day, and what runs on your device instead.">
 <link rel="canonical" href="https://ebookpro.hycyon.com/ai/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)">
@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="eBook Pro">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI — eBook Pro">
-<meta property="og:description" content="What AI does in eBook Pro today: Premium AI explanations through Google Gemini, with a 20-per-day limit, and which features run on your device instead.">
+<meta property="og:description" content="AI in eBook Pro Premium (₹9/month): explanations, page/chapter/book summaries and cited research answers through Google Gemini, 20 requests a day, and what runs on your device instead.">
 <meta property="og:url" content="https://ebookpro.hycyon.com/ai/">
 <meta property="og:image" content="https://ebookpro.hycyon.com/assets/img/og_preview.png">
 <meta property="og:image:type" content="image/png">
@@ -22,7 +22,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI — eBook Pro">
-<meta name="twitter:description" content="What AI does in eBook Pro today: Premium AI explanations through Google Gemini, with a 20-per-day limit, and which features run on your device instead.">
+<meta name="twitter:description" content="AI in eBook Pro Premium (₹9/month): explanations, page/chapter/book summaries and cited research answers through Google Gemini, 20 requests a day, and what runs on your device instead.">
 <meta name="twitter:image" content="https://ebookpro.hycyon.com/assets/img/og_preview.png">
 <meta name="twitter:image:alt" content="eBook Pro — Read. Learn. Understand.">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -59,33 +59,35 @@
   <div class="wrap narrow">
     <p class="eyebrow">AI</p>
     <h1>How AI works in eBook Pro</h1>
-    <p class="lead">One AI feature is released today. This page explains what it does, who can use it, and where your text goes.</p>
+    <p class="lead">AI is part of Premium (₹9/month). This page explains what each AI feature does and where your text goes.</p>
     
   </div>
 </section>
 <section><div class="wrap narrow prose">
-<h2>Available now</h2>
-<div class="card" style="margin-bottom:1rem"><h3>AI explanations <span class="badge badge-prem">Premium</span></h3><p>Select a passage and ask for an explanation. eBook Pro sends the selected text and its surrounding paragraph to a Google Cloud function that we run. That function verifies your account and Premium status, applies your daily limit, and asks a Google Gemini model to explain the passage concisely in the language you choose. The answer streams back to the app.</p></div>
+<h2>Available now <span class="badge badge-prem">Premium</span></h2>
+<div class="card" style="margin-bottom:1rem"><h3>AI explanations</h3><p>Select a passage and choose Explain, Simplify, Summarize or Examples. The selected text and its surrounding paragraph go to a Google Cloud function that we run; it checks your account and Premium, applies your daily limit, and asks a Google Gemini model. The answer streams back and is labelled as generated. Sanskrit passages, which on-device translation cannot handle, can be translated the same way.</p></div>
+<div class="card" style="margin-bottom:1rem"><h3>AI summaries</h3><p>Summarise the current page, a chapter or the whole book. For a page or chapter the app sends that text. A whole book is never sent: the summary is built from the contents with your saved chapter summaries or each chapter’s opening, and it says so. Summaries are saved with their source and open again offline. A whole-book summary counts as 3 of the daily requests.</p></div>
+<div class="card" style="margin-bottom:1rem"><h3>Research answers</h3><p>In a research workspace, ask a question across its documents. The app sends your question and the most relevant excerpts it found on your device, numbered, and the answer cites them; each citation opens the passage. It counts as 2 requests.</p></div>
 <h2>Runs on your device (not AI requests to us)</h2>
-<ul><li><strong>Translation</strong>: Google ML Kit, on-device on Android (models download on demand); MyMemory online service in the web app.</li><li><strong>OCR</strong>: Google ML Kit, on-device (Android), Latin and Devanagari.</li><li><strong>Listen (read aloud)</strong>: your device’s text-to-speech voices.</li><li><strong>Dictionary</strong>: a small bundled dictionary; Wikipedia lookups call Wikipedia.</li></ul>
+<ul><li><strong>Translation</strong>: Google ML Kit on your device in the Android app (language packs download once); an online translation service in the web app.</li><li><strong>OCR</strong>: Google ML Kit, on your device (Android), Latin and Devanagari.</li><li><strong>Listen (read aloud)</strong>: your device’s text-to-speech voices.</li><li><strong>Search, canvases, flashcards</strong>: on your device.</li></ul>
 <h2>Limits</h2>
-<div class="table-wrap"><table><thead><tr><th scope="col">Plan</th><th scope="col">AI explanations</th></tr></thead><tbody>
+<div class="table-wrap"><table><thead><tr><th scope="col">Plan</th><th scope="col">AI</th></tr></thead><tbody>
 <tr><td>Signed out</td><td>Not available</td></tr>
-<tr><td>Free account</td><td>Not available (Premium required)</td></tr>
-<tr><td>Premium</td><td>Up to 20 per day, reset at midnight UTC</td></tr></tbody></table></div>
+<tr><td>Free account</td><td>Not available (Premium)</td></tr>
+<tr><td>Premium (₹9/month)</td><td>Up to 20 requests per day, reset at midnight UTC</td></tr></tbody></table></div>
 <h2>How requests are handled</h2>
 <ul>
-<li>Sent over HTTPS with your sign-in token, which our server verifies.</li>
+<li>Sent over HTTPS with your sign-in token, which our server verifies together with your Premium subscription.</li>
 <li>The text is forwarded to Google’s Gemini API, using a key that is stored on our server and never shipped in the app.</li>
 <li>A shared cache stores answers keyed by a one-way hash of the text, context and language, so identical requests can be answered without calling Gemini again. The cache stores the answer, not your account ID.</li>
 <li>Your account stores only a per-day counter of AI requests, for the limit.</li>
-<li>Google processes the text under its own terms for the Gemini API. See Google’s documentation for how Google handles API data.</li>
+<li>Google processes the text under its own terms for the Gemini API.</li>
 </ul>
 <h2>What not to submit</h2>
 <p>Do not select passages that contain passwords, financial or health details, government IDs, or other sensitive personal information, and avoid material you are not allowed to share. AI answers can be wrong; verify anything important.</p>
-<h2>Coming soon / planned</h2>
+<h2>Planned</h2>
 <ul><li><span class="badge badge-plan">Planned</span> AI-written flashcards (today’s flashcards are made without AI).</li></ul>
-<p>We will not describe anything here as available until it ships. See the <a href="/roadmap/">roadmap</a> and <a href="/privacy/">Privacy Policy</a>.</p>
+<p>See the <a href="/roadmap/">roadmap</a> and <a href="/privacy/">Privacy Policy</a>.</p>
 </div></section>
 </main>
 <footer class="site-footer">

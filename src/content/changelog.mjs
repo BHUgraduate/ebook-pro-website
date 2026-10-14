@@ -2,10 +2,11 @@
 // Only list things that were implemented AND verified (tests or on-device) for that release.
 export const changelog = [
   {
-    version: '1.4.0 (build 7)',
+    version: '1.5.0 (build 8)',
     date: '2026-10-14',
     kind: 'App',
     added: [
+      'eBook Pro Premium is now a monthly subscription: ₹9/month, renewing every month until you cancel, with a clear Free and Premium comparison, subscription status, Restore purchases and Cancel subscription in Settings → Premium.',
       'Knowledge canvas: lay out notes, highlights, saved passages, AI answers, voice notes, books and collections as cards, connect them with labelled links, and open any card at its source.',
       'Voice notes: record about a page or attach to a note or highlight, with pause/resume, waveform playback, title, transcript and sharing.',
       'Research workspaces: several documents, a research question, everything marked in them, full-text search across them, side-by-side comparison, pinned passages, and AI answers with numbered citations (Premium).',
@@ -20,11 +21,16 @@ export const changelog = [
       'Sanskrit is recognised and translated with AI (Premium) instead of being treated as Hindi.',
     ],
     changed: [
+      'Premium now includes AI explanations and summaries, the knowledge canvas, research workspaces, bilingual reading, Word export and cloud sync. Reading, notes, highlights, OCR, translation, flashcards and voice notes stay free. If Premium ends, nothing you made is deleted.',
+      'If you bought Premium as a one-time ₹9 payment before this version, it stays active and you are not charged.',
+      'Home, Library and Store share one layout: the same margins, title row, buttons and filter chips on phones and tablets, in portrait and landscape. Selected chips show a check mark, not only a colour.',
       'Search everything also finds saved passages, AI answers and voice notes.',
       'Deleting a book also removes its reading position and pen marks; your notes, highlights, cards and passages from it are kept.',
       'The store shelf “Premium Reads” is now called “Books to Buy”: Premium unlocks AI, and books are bought one by one.',
     ],
     fixed: [
+      'The “Premium required” card in the word pop-up did nothing when tapped; it now opens the plan.',
+      'Deleting your account now cancels a running Premium subscription first, so it is never charged again.',
       'Pen marks drawn on PDF pages were lost when you turned the page or closed the book. They are now saved and shown while reading.',
       'Password-protected PDFs failed with an unclear error; the app now explains that they cannot be opened yet and how to import an unprotected copy.',
       'Store ratings from before version 1.2 now count in each book’s rating.',

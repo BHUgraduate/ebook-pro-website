@@ -6,6 +6,7 @@ import { faq } from '../content/faq.mjs';
 import { roadmap, roadmapGroups } from '../content/roadmap.mjs';
 import { changelog, changelogNote } from '../content/changelog.mjs';
 import { screenshots } from '../content/screenshots.mjs';
+import { freeFeatures, premiumFeatures, afterPremiumEnds } from '../content/plans.mjs';
 
 const launchBtn = (cls = 'btn-primary') => `<a class="btn ${cls}" href="${site.webAppUrl}" rel="noopener">Launch web app</a>`;
 const androidBtn = (cls = 'btn-secondary') =>
@@ -22,21 +23,42 @@ const softwareLd = {
   operatingSystem: 'Android, Web',
   url: site.url + '/',
   installUrl: site.android.playStoreUrl || undefined,
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR', description: 'Free to use. Optional Premium purchase.' },
+  offers: [
+    { '@type': 'Offer', price: '0', priceCurrency: 'INR', description: 'Free: reading, library, highlights, notes, OCR, translation, flashcards.' },
+    { '@type': 'Offer', price: '9', priceCurrency: 'INR', description: 'eBook Pro Premium, ₹9 per month, renews monthly until cancelled.', priceSpecification: { '@type': 'UnitPriceSpecification', price: '9', priceCurrency: 'INR', unitCode: 'MON', referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' } } },
+  ],
   publisher: { '@id': site.url + '/#developer' },
 };
 
 const featureItem = (f) => `<li><span class="t"><strong>${esc(f.name)}</strong>${f.premium ? ' ' + status.premium : ''}<small>${esc(f.text)}</small></span>${status[f.status] || ''}</li>`;
 
+const planCards = () => `<div class="grid g2">
+  <div class="card"><h3>Free</h3><p class="muted">A complete reader, always</p><ul>${freeFeatures.map((f) => `<li><strong>${esc(f.title)}</strong>: ${esc(f.detail)}</li>`).join('')}</ul></div>
+  <div class="card" style="border-color:var(--accent)"><h3>Premium · ${premium.pricePerPeriod}</h3><p class="muted">Everything in Free, plus</p><ul>${premiumFeatures.map((f) => `<li><strong>${esc(f.title)}</strong>: ${esc(f.detail)}</li>`).join('')}</ul><p class="small">Renews every month until you cancel. Cancel any time in the app (Settings → Premium); Premium stays on until the end of the month you paid for.</p></div>
+</div>`;
+
+const flow = ['Read', 'Understand', 'Capture', 'Connect', 'Remember', 'Create'];
+
 /* ------------------------------------------------------------------ HOME */
 export function home() {
+  const sections = [
+    ['Reader', 'Made for long-form reading', 'PDF, EPUB, EPUB 3 and TXT in one reader: page-curl or slide turning, themes, typography, contents, bookmarks, tappable EPUB links and footnotes, pinch-zoom for PDFs, and read aloud. Import web articles to read them offline.', '/formats/', 'Supported formats'],
+    ['Notes & highlights', 'Capture what matters', 'Select a passage to highlight it, write a note, save it, or draw on a PDF page. Everything keeps its source, so one tap takes you back to the exact page. The Edit / Write workspace turns notes into documents.', '/features/#notes', 'Notes and writing'],
+    ['AI · Premium', 'Understand hard passages', `Ask AI to explain, simplify, summarise or give examples for a passage, or summarise a page, chapter or whole book. Answers are labelled as generated. Up to ${premium.aiDailyLimit} requests a day.`, '/ai/', 'How the AI works'],
+    ['OCR & translation', 'Scanned pages and other languages', 'On Android, scanned pages and images are read on your device (English and Hindi), so their text can be selected and searched. Translate selections on your device; read a chapter bilingually with Premium.', '/features/#learning', 'Learning tools'],
+    ['Knowledge canvas · Premium', 'Connect ideas', 'Turn notes, highlights, passages, AI answers, voice notes and books into cards on a board, connect them with labelled links, and open any card at its source.', '/features/#notes', 'Canvas details'],
+    ['Collections', 'Organise anything', 'A collection can hold books, notes, highlights, cards, words, passages and voice notes. Smart collections find what you are reading, have not started or recently annotated.', '/features/#library', 'Library features'],
+    ['Research workspace · Premium', 'Study several documents together', 'Pick the books and articles for a question, search all of them at once, compare passages side by side, pin evidence, ask AI for an answer with numbered citations, and export it to Word.', '/features/#notes', 'Research details'],
+    ['Study tools', 'Remember it', 'Flashcards with spaced repetition from anything you saved, My Dictionary for new words, and a reading dashboard with goals and streaks.', '/features/#learning', 'Study features'],
+    ['Cloud sync · Premium', 'Your knowledge on every device', 'Turn on sync to keep notes, highlights, cards, words, collections, canvases, workspaces and voice notes in step across your devices. Book files and reading positions stay on each device.', '/docs/', 'What sync covers'],
+  ];
   const body = `
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow">Reading + learning</p>
-      <h1>Read. Learn. Understand.</h1>
-      <p class="lead">eBook Pro is a reading app for your PDF, EPUB and text books, with the tools to look up, translate, listen, highlight and remember what you read.</p>
+      <p class="eyebrow">Read · Understand · Capture · Connect · Remember · Create</p>
+      <h1>Not just another ebook reader.</h1>
+      <p class="lead">eBook Pro reads your PDF, EPUB and text books, and turns what you read into knowledge: highlights and notes that remember their source, AI that explains, canvases that connect ideas, research across several books, and flashcards that help you remember.</p>
       <div class="btn-row">${launchBtn()}${androidBtn()}</div>
       <div class="platforms" aria-label="Platform availability">
         <span class="chip">Web <strong>available</strong></span>
@@ -49,71 +71,39 @@ export function home() {
         <div class="ch">Chapter one</div>
         <p>It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a <mark>wife</mark>.</p>
         <p>However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families.</p>
-        <div class="tip">Tap a word to look it up, translate it or listen.</div>
+        <div class="tip">Highlight, note, translate or explain, then connect it to the rest of your knowledge.</div>
       </div>
       <p class="art-note">Illustration, not a screenshot. Text from <em>Pride and Prejudice</em> (public domain).</p>
     </div>
   </div>
 </section>
 
-<section class="alt reveal">
-  <div class="wrap">
-    <div class="section-head"><h2>A reader for the books you already have</h2>
-    <p class="lead">Import PDF, EPUB and TXT files and read them in one consistent place. Your imported books stay on your device.</p></div>
-    <div class="grid g4">${homeHighlights.map((h) => `<div class="card"><h3>${esc(h.title)}</h3><p>${esc(h.text)}</p></div>`).join('')}</div>
-    <p style="margin-top:1.5rem"><a href="/features/">See all features →</a></p>
-  </div>
-</section>
-
-<section class="reveal">
-  <div class="wrap grid g2" style="align-items:start;gap:3rem">
-    <div>
-      <p class="eyebrow">Reading experience</p>
-      <h2>Made for long-form reading</h2>
-      <p>Page-curl or slide page turning, three colour themes and adjustable typography. PDFs keep their original layout with zoom and search; EPUB and TXT re-flow to fit your screen. A focus timer and daily streak help you keep going.</p>
-      <p><a href="/formats/">See supported formats →</a></p>
-    </div>
-    <div>
-      <p class="eyebrow">AI-powered learning</p>
-      <h2>Understand what you read</h2>
-      <p>Select text for a translation (English, Hindi and more), a Wikipedia summary in English or Hindi, a definition, or to hear it read aloud. Premium readers can also ask Google’s Gemini to explain a passage in context. Today that is the only AI feature, and it is limited to ${premium.aiDailyLimit} requests a day.</p>
-      <p><a href="/ai/">How the AI works →</a></p>
-    </div>
-  </div>
-</section>
-
-<section class="alt reveal">
-  <div class="wrap grid g2" style="align-items:start;gap:3rem">
-    <div>
-      <p class="eyebrow">Personal library</p>
-      <h2>Your library, on your device</h2>
-      <p>Imported books, reading progress, highlights, flashcards and streaks are stored on the device or browser you use. An optional account adds a store where you can download books and leave reviews.</p>
-    </div>
-    <div>
-      <p class="eyebrow">Cross-device</p>
-      <h2>Honest about sync</h2>
-      <p>Your account and store library are stored online, but imported books and reading data do <strong>not</strong> sync between devices yet. We list it on the <a href="/roadmap/">roadmap</a> as something we are exploring, not as a feature you have today.</p>
-    </div>
-  </div>
-</section>
-
 <section class="reveal">
   <div class="wrap">
-    <div class="section-head"><h2>Supported formats</h2><p class="lead">PDF, EPUB (2 and 3) and TXT.</p></div>
-    <div class="grid g3">
-      ${formats.map((f) => `<div class="card"><h3>${esc(f.name)}</h3><p>${esc(f.summary)}</p></div>`).join('')}
-    </div>
-    <p style="margin-top:1.5rem"><a href="/formats/">Capabilities and limitations →</a></p>
+    <div class="section-head"><h2>From reading to knowledge</h2><p class="lead">Everything you save is one linked object, shown wherever it is useful: in the book, in a collection, on a canvas, in a research workspace and in search.</p></div>
+    <ol class="grid g3" style="list-style:none;padding:0">${flow.map((step, i) => `<li class="card"><p class="eyebrow">${i + 1}</p><h3>${step}</h3></li>`).join('')}</ol>
+  </div>
+</section>
+
+${sections
+  .map(
+    ([eyebrow, title, text, href, link], i) => `<section class="${i % 2 === 0 ? 'alt ' : ''}reveal"><div class="wrap narrow"><p class="eyebrow">${esc(eyebrow)}</p><h2>${esc(title)}</h2><p>${esc(text)}</p><p><a href="${href}">${esc(link)} →</a></p></div></section>`
+  )
+  .join('\n')}
+
+<section class="reveal" id="pricing">
+  <div class="wrap">
+    <div class="section-head"><h2>Free and Premium</h2><p class="lead">Reading stays free. Premium is <strong>${premium.pricePerPeriod}</strong>, renews monthly until you cancel, and unlocks the knowledge and research tools.</p></div>
+    ${planCards()}
+    <p class="small muted" style="margin-top:1rem">${esc(afterPremiumEnds)} Paid store books are bought one by one and are not part of Premium. <a href="/premium/">Premium details →</a></p>
   </div>
 </section>
 
 <section class="alt reveal">
-  <div class="wrap">
-    <div class="section-head"><h2>Free and Premium</h2></div>
-    <div class="grid g2">
-      <div class="card"><h3>Free</h3><ul><li>Import and read PDF, EPUB and TXT</li><li>Highlights, flashcards, focus mode, streaks</li><li>Translation (including Hindi), OCR and listen mode</li><li>Notes and the Edit / Write workspace, with export to PDF and EPUB</li><li>Browse the store; free store downloads with an account</li></ul></div>
-      <div class="card"><h3>Premium — ${premium.priceDisplay}</h3><ul><li>AI explanations (up to ${premium.aiDailyLimit} per day), in the reader and in your notes</li><li>Paid once through ${premium.provider}; no renewal, nothing to cancel</li><li>Everything else on this page stays free</li></ul><p><a href="/premium/">Premium details →</a></p></div>
-    </div>
+  <div class="wrap narrow">
+    <p class="eyebrow">Privacy</p>
+    <h2>Your books stay yours</h2>
+    <p>Imported books and reading positions stay on your device. AI features send only the text needed for the request, through our server. Sync is off until you turn it on. Read the <a href="/privacy/">Privacy Policy</a>.</p>
   </div>
 </section>
 
@@ -136,7 +126,7 @@ export function home() {
 <section class="reveal">
   <div class="wrap narrow">
     <div class="section-head"><h2>Common questions</h2></div>
-    ${faq.slice(0, 5).map(faqItem).join('')}
+    ${faq.slice(0, 6).map(faqItem).join('')}
     <p><a href="/faq/">All questions →</a></p>
   </div>
 </section>
@@ -145,7 +135,7 @@ ${ctaBand('Start reading', 'Open the web app in your browser, or get the Android
   return {
     path: '/',
     title: site.name,
-    description: 'eBook Pro is a reading and learning app for PDF, EPUB and text books, with highlights, flashcards, translation, listen mode and AI explanations.',
+    description: `eBook Pro turns reading into knowledge: a free PDF, EPUB and TXT reader with notes and OCR, plus Premium (${premium.pricePerPeriod}) AI, canvas, research and sync.`,
     body,
     ld: [{ '@context': 'https://schema.org', '@graph': [websiteLd, orgLd] }, softwareLd],
   };
@@ -162,10 +152,10 @@ ${featureGroups
     (g) => `<div id="${g.id}" class="reveal" style="margin-bottom:3rem"><h2>${esc(g.title)}</h2><p class="muted">${esc(g.intro)}</p><ul class="feature-list">${g.items.map(featureItem).join('')}</ul></div>`
   )
   .join('')}
-<div class="note"><strong>AI</strong><p>AI explanations are the only AI feature released today. Everything else listed under Learning, including OCR and listen mode, runs on your device, as does translation in the Android app (the web app uses an online translation service). See <a href="/ai/">AI</a>.</p></div>
+<div class="note"><strong>Free and Premium</strong><p>Items marked Premium need eBook Pro Premium (${premium.pricePerPeriod}, renews monthly until cancelled); everything else is free. AI features (explanations, summaries, research answers, Sanskrit translation) go through our server to Google Gemini; OCR, listen mode and translation in the Android app run on your device. See <a href="/premium/">Premium</a> and <a href="/ai/">AI</a>.</p></div>
 </div></section>
 ${ctaBand('Try it', 'Open the web app or get the Android app.', `${launchBtn()}${androidBtn()}`)}`;
-  return { path: '/features/', title: 'Features', description: 'Everything eBook Pro does today: PDF, EPUB and TXT reading, highlights, flashcards, translation, listen mode, AI explanations, focus mode and streaks.', body, ld: [softwareLd] };
+  return { path: '/features/', title: 'Features', description: 'Everything eBook Pro does today, free and Premium: PDF, EPUB and TXT reading, highlights, notes, OCR, translation, flashcards, AI, summaries, knowledge canvas, research workspaces and sync.', body, ld: [softwareLd] };
 }
 
 /* --------------------------------------------------------------- FORMATS */
@@ -189,58 +179,61 @@ ${formatCols.map((c) => `<tr><th scope="row">${esc(c)}</th><td>${mark[f.rows[c][
 
 /* -------------------------------------------------------------------- AI */
 export function ai() {
-  const body = `${pageHead('AI', 'How AI works in eBook Pro', 'One AI feature is released today. This page explains what it does, who can use it, and where your text goes.')}
+  const body = `${pageHead('AI', 'How AI works in eBook Pro', `AI is part of Premium (${premium.pricePerPeriod}). This page explains what each AI feature does and where your text goes.`)}
 <section><div class="wrap narrow prose">
-<h2>Available now</h2>
-<div class="card" style="margin-bottom:1rem"><h3>AI explanations ${status.premium}</h3><p>Select a passage and ask for an explanation. eBook Pro sends the selected text and its surrounding paragraph to a Google Cloud function that we run. That function verifies your account and Premium status, applies your daily limit, and asks a Google Gemini model to explain the passage concisely in the language you choose. The answer streams back to the app.</p></div>
+<h2>Available now ${status.premium}</h2>
+<div class="card" style="margin-bottom:1rem"><h3>AI explanations</h3><p>Select a passage and choose Explain, Simplify, Summarize or Examples. The selected text and its surrounding paragraph go to a Google Cloud function that we run; it checks your account and Premium, applies your daily limit, and asks a Google Gemini model. The answer streams back and is labelled as generated. Sanskrit passages, which on-device translation cannot handle, can be translated the same way.</p></div>
+<div class="card" style="margin-bottom:1rem"><h3>AI summaries</h3><p>Summarise the current page, a chapter or the whole book. For a page or chapter the app sends that text. A whole book is never sent: the summary is built from the contents with your saved chapter summaries or each chapter’s opening, and it says so. Summaries are saved with their source and open again offline. A whole-book summary counts as 3 of the daily requests.</p></div>
+<div class="card" style="margin-bottom:1rem"><h3>Research answers</h3><p>In a research workspace, ask a question across its documents. The app sends your question and the most relevant excerpts it found on your device, numbered, and the answer cites them; each citation opens the passage. It counts as 2 requests.</p></div>
 <h2>Runs on your device (not AI requests to us)</h2>
-<ul><li><strong>Translation</strong>: Google ML Kit, on-device on Android (models download on demand); MyMemory online service in the web app.</li><li><strong>OCR</strong>: Google ML Kit, on-device (Android), Latin and Devanagari.</li><li><strong>Listen (read aloud)</strong>: your device’s text-to-speech voices.</li><li><strong>Dictionary</strong>: a small bundled dictionary; Wikipedia lookups call Wikipedia.</li></ul>
+<ul><li><strong>Translation</strong>: Google ML Kit on your device in the Android app (language packs download once); an online translation service in the web app.</li><li><strong>OCR</strong>: Google ML Kit, on your device (Android), Latin and Devanagari.</li><li><strong>Listen (read aloud)</strong>: your device’s text-to-speech voices.</li><li><strong>Search, canvases, flashcards</strong>: on your device.</li></ul>
 <h2>Limits</h2>
-<div class="table-wrap"><table><thead><tr><th scope="col">Plan</th><th scope="col">AI explanations</th></tr></thead><tbody>
+<div class="table-wrap"><table><thead><tr><th scope="col">Plan</th><th scope="col">AI</th></tr></thead><tbody>
 <tr><td>Signed out</td><td>Not available</td></tr>
-<tr><td>Free account</td><td>Not available (Premium required)</td></tr>
-<tr><td>Premium</td><td>Up to ${premium.aiDailyLimit} per day, reset at midnight UTC</td></tr></tbody></table></div>
+<tr><td>Free account</td><td>Not available (Premium)</td></tr>
+<tr><td>Premium (${premium.pricePerPeriod})</td><td>Up to ${premium.aiDailyLimit} requests per day, reset at midnight UTC</td></tr></tbody></table></div>
 <h2>How requests are handled</h2>
 <ul>
-<li>Sent over HTTPS with your sign-in token, which our server verifies.</li>
+<li>Sent over HTTPS with your sign-in token, which our server verifies together with your Premium subscription.</li>
 <li>The text is forwarded to Google’s Gemini API, using a key that is stored on our server and never shipped in the app.</li>
 <li>A shared cache stores answers keyed by a one-way hash of the text, context and language, so identical requests can be answered without calling Gemini again. The cache stores the answer, not your account ID.</li>
 <li>Your account stores only a per-day counter of AI requests, for the limit.</li>
-<li>Google processes the text under its own terms for the Gemini API. See Google’s documentation for how Google handles API data.</li>
+<li>Google processes the text under its own terms for the Gemini API.</li>
 </ul>
 <h2>What not to submit</h2>
 <p>Do not select passages that contain passwords, financial or health details, government IDs, or other sensitive personal information, and avoid material you are not allowed to share. AI answers can be wrong; verify anything important.</p>
-<h2>Coming soon / planned</h2>
+<h2>Planned</h2>
 <ul><li>${status.planned} AI-written flashcards (today’s flashcards are made without AI).</li></ul>
-<p>We will not describe anything here as available until it ships. See the <a href="/roadmap/">roadmap</a> and <a href="/privacy/">Privacy Policy</a>.</p>
+<p>See the <a href="/roadmap/">roadmap</a> and <a href="/privacy/">Privacy Policy</a>.</p>
 </div></section>`;
-  return { path: '/ai/', title: 'AI', description: 'What AI does in eBook Pro today: Premium AI explanations through Google Gemini, with a 20-per-day limit, and which features run on your device instead.', body };
+  return { path: '/ai/', title: 'AI', description: `AI in eBook Pro Premium (${premium.pricePerPeriod}): explanations, page/chapter/book summaries and cited research answers through Google Gemini, ${premium.aiDailyLimit} requests a day, and what runs on your device instead.`, body };
 }
 
 /* --------------------------------------------------------------- PREMIUM */
 export function premiumPage() {
-  const body = `${pageHead('Premium', 'eBook Pro Premium', `Premium costs ${premium.priceDisplay}. This page describes how it works today.`)}
+  const body = `${pageHead('Premium', 'eBook Pro Premium', `${premium.pricePerPeriod}. Renews every month until you cancel.`)}
 <section><div class="wrap">
-<div class="grid g2" style="max-width:860px;margin:0 auto 2.5rem">
-  <div class="card"><h2>Free</h2><p><strong>₹0</strong></p><ul>
-  <li>Import and read PDF, EPUB, TXT</li><li>Highlights, pen annotations, flashcards</li><li>Translation (on-device on Android), OCR in English and Hindi, listen mode</li><li>Notes, Edit / Write, collections and export</li><li>Dictionary and Wikipedia lookups</li><li>Focus mode, streaks, statistics</li><li>Browse the store; free store downloads with an account</li></ul></div>
-  <div class="card" style="border-color:var(--accent)"><h2>Premium ${status.premium}</h2><p><strong>${premium.priceDisplay}</strong> · paid through ${premium.provider}</p><ul>
-  <li>AI explanations, up to ${premium.aiDailyLimit} per day, in the reader and in your notes</li><li>Restore purchase on the Premium screen if a payment did not register</li><li>Paid store books are bought one by one and are not part of Premium</li></ul></div>
-</div>
+<div style="max-width:960px;margin:0 auto 2.5rem"><h2 style="text-align:center">Free and Premium</h2>${planCards()}</div>
 <div class="prose" style="margin:0 auto">
-<h2>Billing</h2>
-<p>Premium is bought inside the app on the Upgrade screen. Payment is handled by ${premium.provider} and supports UPI, cards, net banking and wallets. We never see or store your card or UPI details. The app passes your email and phone number to the checkout only to pre-fill it.</p>
-<h2>Renewal and cancellation</h2>
-<p>The app currently takes a single ${premium.priceDisplay} payment and then activates Premium on your account. It does <strong>not</strong> set up automatic renewals, so there is nothing to cancel and you are not charged again automatically. If we introduce recurring billing or an expiry, we will say so clearly before you pay and update this page and the <a href="/refund-policy/">Refund &amp; cancellation policy</a>.</p>
-
+<h2>Price and billing</h2>
+<p>Premium is a <strong>monthly subscription at ${premium.pricePerPeriod}</strong>. The first month is charged when you subscribe, then ${premium.priceDisplay} every month on the same date until you cancel. It is not a one-time purchase and not lifetime access. You subscribe in the app (Settings → Premium → Start Premium). Payment is handled by ${premium.provider}, which sets up the recurring payment through UPI Autopay, a card or another method it supports for subscriptions; you approve it once in your payment app. We never see or store your card or UPI details.</p>
+<p>Prices are in Indian rupees. The amount shown at checkout is what you pay; your bank or payment app may show it with its own description.</p>
+<h2>Cancelling</h2>
+<p>Cancel any time in the app: Settings → Premium → Cancel subscription. Premium stays on until the end of the month you already paid for, and you are not charged again. If you revoke the mandate in your UPI app or card instead, the next renewal cannot be charged and Premium ends after the paid month.</p>
+<h2>If a renewal payment fails</h2>
+<p>${premium.provider} retries for a few days. Premium continues for a short grace period while it does, and the Premium screen tells you there is a payment problem. If the retries fail, the subscription stops and Premium ends.</p>
+<h2>When Premium ends</h2>
+<p>${esc(afterPremiumEnds)}</p>
+<h2>Restore purchases</h2>
+<p>On a new phone, or if a payment did not register, open Settings → Premium → Restore purchases while signed in to the account you subscribed with. Our server re-checks your subscription with ${premium.provider}.</p>
+<h2>Bought Premium before subscriptions?</h2>
+<p>Premium used to be a single ${premium.priceDisplay} payment (app 1.3 and earlier). If you bought it that way, it stays active for that account and you will not be charged.</p>
 <h2>Refunds</h2>
-<p>Purchases are generally final. Exceptions (failed activation, duplicate charge) are in the <a href="/refund-policy/">Refund &amp; cancellation policy</a>.</p>
+<p>See the <a href="/refund-policy/">Refund &amp; cancellation policy</a>.</p>
 <h2>If you delete your account</h2>
-<p>Deleting your account removes your Premium status with it. See <a href="/delete-account/">Account &amp; data deletion</a>.</p>
-<h2>Prices</h2>
-<p>Prices are shown in the app at checkout and are in Indian rupees. If a price on this page and the price at checkout ever differ, the checkout price applies, and please tell us.</p>
+<p>Deleting your account cancels the subscription’s renewal and removes your Premium status. See <a href="/delete-account/">Account &amp; data deletion</a>.</p>
 </div></div></section>`;
-  return { path: '/premium/', title: 'Premium', description: `eBook Pro Premium: ${premium.priceDisplay}, AI explanations (up to ${premium.aiDailyLimit}/day) and premium store content. Billing, renewal, cancellation and refunds explained.`, body };
+  return { path: '/premium/', title: 'Premium', description: `eBook Pro Premium is ${premium.pricePerPeriod} and renews monthly until cancelled: AI, summaries, canvas, research, bilingual reading, Word export and sync.`, body };
 }
 
 /* -------------------------------------------------------------- DOWNLOAD */
