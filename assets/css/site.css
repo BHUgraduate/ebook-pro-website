@@ -217,7 +217,14 @@ details.faq .a p:last-child{margin:0}
 .cta-band .btn-primary{background:var(--bg);color:var(--ink)}
 .site-footer{border-top:1px solid var(--line);padding:3rem 0 2rem;background:var(--surface)}
 .foot-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:2rem}
-@media (max-width:900px){.foot-grid{grid-template-columns:repeat(2,1fr)}.foot-brand{grid-column:1/-1}}
+@media (max-width:900px){.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.75rem 1.5rem}.foot-brand{grid-column:1/-1}}
+@media (max-width:620px){
+  .site-footer{padding:2rem 0 1.5rem}
+  .site-footer li{margin-bottom:0}
+  .site-footer li a{display:block;padding:.4rem 0}
+  .foot-brand p{margin-bottom:.5rem}
+  .copy{text-align:center;margin-top:1.5rem}
+}
 .foot-title{font:600 .78rem var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 .75rem}
 .site-footer ul{list-style:none;padding:0;margin:0}
 .site-footer li{margin-bottom:.45rem}
@@ -226,8 +233,10 @@ details.faq .a p:last-child{margin:0}
 .copy{margin:2rem 0 0;padding-top:1.25rem;border-top:1px solid var(--line)}
 
 /* Screenshots gallery */
-.shots{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
-.shots figure{margin:0}.shots figure.wide{grid-column:span 2}.shots img{border-radius:12px;border:1px solid var(--line)}
+.shots{display:grid;gap:1rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:700px){.shots{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1000px){.shots{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.shots figure{margin:0;min-width:0}.shots figure.wide{grid-column:1/-1}.shots img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
 .shots figcaption{font-size:.85rem;color:var(--ink-3);margin-top:.4rem}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r);padding:2rem;text-align:center;color:var(--ink-3)}
 
@@ -239,3 +248,18 @@ details.faq .a p:last-child{margin:0}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{.site-header,.site-footer,.cta-band,.docs-side{display:none}body{background:#fff;color:#000}}
+
+/* Home: numbered flow cards, hero buttons and platform chips */
+.flow{list-style:none;padding:0;margin:0}
+.flow .card{display:flex;align-items:center;gap:1rem}
+.flow .card .eyebrow{flex:none;display:grid;place-items:center;width:2.4rem;height:2.4rem;margin:0;border-radius:50%;background:var(--accent-soft);font-size:1rem;letter-spacing:0}
+.flow .card h3{margin:0}
+@media (min-width:621px){.flow .card{display:block}.flow .card .eyebrow{display:block;width:auto;height:auto;background:none;border-radius:0;font-size:.8rem;letter-spacing:.12em;margin:0 0 .75rem}.flow .card h3{margin:0 0 .4rem}}
+@media (max-width:620px){
+  .hero .btn-row{flex-direction:column}
+  .hero .btn-row .btn{width:100%}
+  .platforms{display:grid;grid-template-columns:1fr;gap:.5rem}
+  .platforms .chip{justify-content:space-between;border-radius:12px;padding:.55rem .9rem}
+  .center .btn-row{flex-direction:column;align-items:stretch}
+  .center .btn-row .btn{width:100%}
+}

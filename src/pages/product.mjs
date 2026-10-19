@@ -81,7 +81,7 @@ export function home() {
 <section class="reveal">
   <div class="wrap">
     <div class="section-head"><h2>From reading to knowledge</h2><p class="lead">Everything you save is one linked object, shown wherever it is useful: in the book, in a collection, on a canvas, in a research workspace and in search.</p></div>
-    <ol class="grid g3" style="list-style:none;padding:0">${flow.map((step, i) => `<li class="card"><p class="eyebrow">${i + 1}</p><h3>${step}</h3></li>`).join('')}</ol>
+    <ol class="grid g3 flow">${flow.map((step, i) => `<li class="card"><p class="eyebrow">${i + 1}</p><h3>${step}</h3></li>`).join('')}</ol>
   </div>
 </section>
 
