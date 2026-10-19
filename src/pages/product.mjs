@@ -18,7 +18,8 @@ const softwareLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: site.name,
-  description: 'A reading and learning app for PDF, EPUB and text books.',
+  alternateName: ['eBook Pro app', 'eBook Pro reader', 'ebookpro'],
+  description: 'A free ebook reader and learning app for PDF, EPUB and text books, with highlights, notes, OCR and translation.',
   applicationCategory: 'EducationalApplication',
   operatingSystem: 'Android, Web',
   url: site.url + '/',
@@ -135,7 +136,7 @@ ${ctaBand('Start reading', 'Open the web app in your browser, or get the Android
   return {
     path: '/',
     title: site.name,
-    description: `eBook Pro turns reading into knowledge: a free PDF, EPUB and TXT reader with notes and OCR, plus Premium (${premium.pricePerPeriod}) AI, canvas, research and sync.`,
+    description: `eBook Pro turns reading into knowledge: a free ebook reader app for PDF, EPUB and TXT with highlights, notes and OCR, plus Premium (${premium.pricePerPeriod}) AI, canvas, research and sync.`,
     body,
     ld: [{ '@context': 'https://schema.org', '@graph': [websiteLd, orgLd] }, softwareLd],
   };
@@ -155,7 +156,7 @@ ${featureGroups
 <div class="note"><strong>Free and Premium</strong><p>Items marked Premium need eBook Pro Premium (${premium.pricePerPeriod}, renews monthly until cancelled); everything else is free. AI features (explanations, summaries, research answers, Sanskrit translation) go through our server to Google Gemini; OCR, listen mode and translation in the Android app run on your device. See <a href="/premium/">Premium</a> and <a href="/ai/">AI</a>.</p></div>
 </div></section>
 ${ctaBand('Try it', 'Open the web app or get the Android app.', `${launchBtn()}${androidBtn()}`)}`;
-  return { path: '/features/', title: 'Features', description: 'Everything eBook Pro does today, free and Premium: PDF, EPUB and TXT reading, highlights, notes, OCR, translation, flashcards, AI, summaries, knowledge canvas, research workspaces and sync.', body, ld: [softwareLd] };
+  return { path: '/features/', title: 'Ebook reader features', description: 'Everything the eBook Pro ebook reader does today, free and Premium: PDF, EPUB and TXT reading, notes, OCR, translation, flashcards, AI and sync.', body, ld: [softwareLd] };
 }
 
 /* --------------------------------------------------------------- FORMATS */
@@ -174,7 +175,7 @@ ${formatCols.map((c) => `<tr><th scope="row">${esc(c)}</th><td>${mark[f.rows[c][
 <h2>Not supported</h2><ul>${unsupported.map((u) => `<li>${esc(u)}</li>`).join('')}</ul>
 <div class="note"><strong>OCR</strong><p>OCR reads scanned PDF pages and illustrations so their text can be selected, copied, searched and translated. It runs on your device (Google ML Kit, Latin and Devanagari scripts) on Android and is not available in the web app.</p></div>
 </div></section>`;
-  return { path: '/formats/', title: 'Supported formats', description: 'PDF, EPUB 2/3 and TXT support in eBook Pro: import, reading, search, text extraction, images, layout, navigation, zoom and annotations, with limitations.', body };
+  return { path: '/formats/', title: 'PDF, EPUB and TXT ebook reader', description: 'PDF, EPUB 2/3 and TXT ebook support in eBook Pro: import, reading, search, text extraction, images, layout, navigation, zoom and annotations, with limitations.', body };
 }
 
 /* -------------------------------------------------------------------- AI */
@@ -249,7 +250,7 @@ export function download() {
   <div class="card"><h2 style="font-size:1.4rem">Web ${status.available}</h2><p>Open eBook Pro in any modern browser. No install needed.</p><div class="btn-row">${launchBtn()}</div><p class="small muted" style="margin-top:.75rem">Some features (OCR, on-device translation) are Android-only. See <a href="/web-app/">web app</a>.</p></div>
   <div class="card"><h2 style="font-size:1.4rem">iPhone &amp; iPad ${status.planned}</h2><p>There is no iOS app yet. We will add an App Store link here only when one exists.</p></div>
 </div></div></section>`;
-  return { path: '/download/', title: 'Download', description: 'Get eBook Pro: launch the web app, get the Android app on Google Play when it is live. iPhone and iPad are not available yet.', body, ld: [softwareLd] };
+  return { path: '/download/', title: 'Get the ebook reader app', description: 'Get the eBook Pro ebook reader app: launch the web app, get the Android app on Google Play when it is live. iPhone and iPad are not available yet.', body, ld: [softwareLd] };
 }
 
 export function webApp() {
@@ -262,7 +263,7 @@ export function webApp() {
 <li>AI explanations need a Premium account and an internet connection.</li></ul>
 <div class="btn-row">${launchBtn()}</div>
 </div></section>`;
-  return { path: '/web-app/', title: 'Web app', description: 'Launch the eBook Pro web app in your browser: read PDF, EPUB and TXT books with highlights, flashcards and more.', body };
+  return { path: '/web-app/', title: 'Read ebooks online, web app', description: 'Launch the eBook Pro web app in your browser and read ebooks online: PDF, EPUB and TXT books with highlights, flashcards and more.', body };
 }
 
 /* ----------------------------------------------------------------- ABOUT */
