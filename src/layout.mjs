@@ -31,7 +31,8 @@ export const websiteLd = {
   '@id': site.url + '/#website',
   url: site.url + '/',
   name: site.name,
-  description: 'Official website of eBook Pro, a reading and learning app.',
+  alternateName: ['eBook Pro app', 'eBook Pro reader', 'ebookpro'],
+  description: 'Official website of eBook Pro, a free ebook reader and learning app for PDF, EPUB and TXT books.',
   publisher: { '@id': site.url + '/#developer' },
 };
 
@@ -97,7 +98,7 @@ export function footerHtml() {
  */
 export function layout(opts) {
   const { path, title, description, body, ld = [], noindex = false, bodyClass = '', scripts = [], ogType = 'website' } = opts;
-  const fullTitle = path === '/' ? `${site.name} — Read. Learn. Understand.` : `${title} — ${site.name}`;
+  const fullTitle = path === '/' ? `${site.name}: Free Ebook Reader for PDF, EPUB and TXT Books` : `${title} — ${site.name}`;
   const canonical = abs(path);
   return `<!doctype html>
 <html lang="en">
