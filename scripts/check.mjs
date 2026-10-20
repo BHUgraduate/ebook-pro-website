@@ -56,5 +56,15 @@ for (const m of sm.matchAll(/<loc>(.*?)<\/loc>/g)) if (!exists(m[1].slice(base.l
 if (/404/.test(sm)) problems.push('sitemap includes 404');
 const rb = readFileSync(join(root, 'robots.txt'), 'utf8'); if (/Disallow:\s*\//.test(rb)) problems.push('robots blocks site');
 for (const p of ['/privacy/', '/terms/', '/delete-account/', '/support/', '/faq/', '/features/']) if (!sm.includes(base + p)) problems.push('sitemap missing ' + p);
+// Trust evidence: every entry must be verifiable (source + date) and must not look like a placeholder.
+const { metrics, reviews, stories } = await import('../src/content/trust.mjs');
+for (const [kind, list] of [['metric', metrics], ['review', reviews], ['story', stories]]) {
+  list.forEach((e, i) => {
+    const w = `trust ${kind} #${i + 1}`;
+    if (!/^https:\/\//.test(e.source || '')) problems.push(`${w}: needs an https \`source\` a reader can verify`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(e.date || '')) problems.push(`${w}: needs an ISO \`date\``);
+    if (/lorem|placeholder|todo|tbd|xx+|\.\.\./i.test(JSON.stringify(e))) problems.push(`${w}: looks like placeholder text`);
+  });
+}
 console.log(`${htmlFiles.length} HTML files checked.`);
 if (problems.length) { console.error(problems.join('\n')); process.exit(1); } else console.log('All checks passed.');

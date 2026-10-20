@@ -3,6 +3,9 @@
 // "screenshots coming soon" state instead of fake imagery.
 // All captures are from the Android app (version 1.1.0), using public-domain sample books (Alice's
 // Adventures in Wonderland, Pride and Prejudice, Moby-Dick, Premchand's Idgah) and sample notes.
+/** App version the captures were taken on. Update it when screenshots are refreshed. */
+export const screenshotsVersion = '1.1.0';
+
 export const screenshots = [
   { file: 'translate-pdf.webp', alt: 'A PDF in eBook Pro with the word "White" selected; the translation card shows English to Hindi and the result "सफेद"', caption: 'Translate a selection in a PDF', width: 540, height: 1200 },
   { file: 'translate-epub.webp', alt: 'An EPUB in eBook Pro with the word "fortune" selected; the translation card shows the Hindi translation "भाग्य"', caption: 'Translate a selection in an EPUB', width: 540, height: 1200 },
