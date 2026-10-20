@@ -5,8 +5,10 @@ import { formats, formatCols, unsupported } from '../content/formats.mjs';
 import { faq } from '../content/faq.mjs';
 import { roadmap, roadmapGroups } from '../content/roadmap.mjs';
 import { changelog, changelogNote } from '../content/changelog.mjs';
-import { screenshots } from '../content/screenshots.mjs';
+import { screenshots, screenshotsVersion } from '../content/screenshots.mjs';
 import { freeFeatures, premiumFeatures, afterPremiumEnds } from '../content/plans.mjs';
+import { stages } from '../content/stages.mjs';
+import { metrics, reviews, stories } from '../content/trust.mjs';
 
 const launchBtn = (cls = 'btn-primary') => `<a class="btn ${cls}" href="${site.webAppUrl}" rel="noopener">Launch web app</a>`;
 const androidBtn = (cls = 'btn-secondary') =>
@@ -38,21 +40,40 @@ const planCards = () => `<div class="grid g2">
   <div class="card" style="border-color:var(--accent)"><h3>Premium · ${premium.pricePerPeriod}</h3><p class="muted">Everything in Free, plus</p><ul>${premiumFeatures.map((f) => `<li><strong>${esc(f.title)}</strong>: ${esc(f.detail)}</li>`).join('')}</ul><p class="small">Renews every month until you cancel. Cancel any time in the app (Settings → Premium); Premium stays on until the end of the month you paid for.</p></div>
 </div>`;
 
-const flow = ['Read', 'Understand', 'Capture', 'Connect', 'Remember', 'Create'];
+
+const stageCard = (st, i) => `<li class="card stage"><p class="eyebrow">${i + 1} · ${esc(st.name)}</p><h3>${esc(st.promise)}</h3><ul>${st.items
+  .map((it) => `<li>${esc(it.text)}${it.premium ? ' ' + status.premium : ''}</li>`)
+  .join('')}</ul><p><a href="${st.href}">${esc(st.link)} →</a></p></li>`;
+
+const shotsBlock = () =>
+  screenshots.length
+    ? `<div class="shots">${screenshots.map((s) => `<figure${s.wide ? ' class="wide"' : ''}><img src="/assets/screenshots/${s.file}" alt="${esc(s.alt)}" width="${s.width}" height="${s.height}" loading="lazy" decoding="async"><figcaption>${esc(s.caption)}</figcaption></figure>`).join('')}</div><p class="small muted">Real screenshots of the Android app, captured on version ${esc(screenshotsVersion)} with public-domain sample books and sample notes. The canvas, research workspaces and sync arrived in later versions and are not pictured yet.</p>`
+    : `<div class="empty"><p><strong>Screenshots are coming soon.</strong></p><p class="small">We only show real screenshots of the released app. Until they are added, see the <a href="/docs/">documentation</a> for how each feature works.</p></div>`;
+
+const fact = (label, value) => `<div class="card fact"><p class="eyebrow">${esc(label)}</p><p>${value}</p></div>`;
+
+const evidence = () => {
+  const entries = (label, list, render) => (list.length ? `<h3>${label}</h3><ul class="evidence">${list.map(render).join('')}</ul>` : '');
+  const src = (e) => `<small class="muted"><a href="${esc(e.source)}" rel="noopener">Source</a> · ${fmtDate(e.date)}</small>`;
+  const real = metrics.length + reviews.length + stories.length;
+  return `<section class="reveal" id="evidence">
+  <div class="wrap">
+    <div class="section-head"><h2>What you can verify today</h2><p class="lead">Facts you can check yourself. Nothing here is estimated or rounded up.</p></div>
+    <div class="grid g4">
+      ${fact('Web app', `${status.available} <a href="${site.webAppUrl}" rel="noopener">Open it in a browser</a>`)}
+      ${fact('Android', site.android.playStoreUrl ? `${status.available} <a href="${site.android.playStoreUrl}" rel="noopener">Google Play</a>` : `${status.dev} Preparing the Google Play release`)}
+      ${fact('iPhone and iPad', `${status.planned} No iOS app yet`)}
+      ${fact('Current version', `${esc(site.app.version)}, released ${fmtDate(site.app.releasedOn)}. <a href="/changelog/">Every release →</a>`)}
+    </div>
+    ${real
+      ? `${entries('Numbers', metrics, (m) => `<li><strong>${esc(m.label)}:</strong> ${esc(m.value)} ${src(m)}</li>`)}${entries('Reviews', reviews, (r) => `<li><blockquote>${esc(r.quote)}</blockquote><p>${esc(r.name)}, ${esc(r.context)} ${src(r)}</p></li>`)}${entries('User stories', stories, (t) => `<li><strong>${esc(t.title)}</strong> ${esc(t.summary)} ${src(t)}</li>`)}`
+      : `<div class="empty" style="margin-top:1.25rem"><p><strong>No ratings, reviews or download counts are published yet.</strong></p><p class="small">They will appear here once they exist, each with its source and date. We do not show placeholder numbers. See the <a href="/privacy/">privacy policy</a> and the <a href="/security/">security page</a> for how data is handled.</p></div>`}
+  </div>
+</section>`;
+};
 
 /* ------------------------------------------------------------------ HOME */
 export function home() {
-  const sections = [
-    ['Reader', 'Made for long-form reading', 'PDF, EPUB, EPUB 3 and TXT in one reader: page-curl or slide turning, themes, typography, contents, bookmarks, tappable EPUB links and footnotes, pinch-zoom for PDFs, and read aloud. Import web articles to read them offline.', '/formats/', 'Supported formats'],
-    ['Notes & highlights', 'Capture what matters', 'Select a passage to highlight it, write a note, save it, or draw on a PDF page. Everything keeps its source, so one tap takes you back to the exact page. The Edit / Write workspace turns notes into documents.', '/features/#notes', 'Notes and writing'],
-    ['AI · Premium', 'Understand hard passages', `Ask AI to explain, simplify, summarise or give examples for a passage, or summarise a page, chapter or whole book. Answers are labelled as generated. Up to ${premium.aiDailyLimit} requests a day.`, '/ai/', 'How the AI works'],
-    ['OCR & translation', 'Scanned pages and other languages', 'On Android, scanned pages and images are read on your device (English and Hindi), so their text can be selected and searched. Translate selections on your device; read a chapter bilingually with Premium.', '/features/#learning', 'Learning tools'],
-    ['Knowledge canvas · Premium', 'Connect ideas', 'Turn notes, highlights, passages, AI answers, voice notes and books into cards on a board, connect them with labelled links, and open any card at its source.', '/features/#notes', 'Canvas details'],
-    ['Collections', 'Organise anything', 'A collection can hold books, notes, highlights, cards, words, passages and voice notes. Smart collections find what you are reading, have not started or recently annotated.', '/features/#library', 'Library features'],
-    ['Research workspace · Premium', 'Study several documents together', 'Pick the books and articles for a question, search all of them at once, compare passages side by side, pin evidence, ask AI for an answer with numbered citations, and export it to Word.', '/features/#notes', 'Research details'],
-    ['Study tools', 'Remember it', 'Flashcards with spaced repetition from anything you saved, My Dictionary for new words, and a reading dashboard with goals and streaks.', '/features/#learning', 'Study features'],
-    ['Cloud sync · Premium', 'Your knowledge on every device', 'Turn on sync to keep notes, highlights, cards, words, collections, canvases, workspaces and voice notes in step across your devices. Book files and reading positions stay on each device.', '/docs/', 'What sync covers'],
-  ];
   const body = `
 <section class="hero">
   <div class="wrap hero-grid">
@@ -79,18 +100,19 @@ export function home() {
   </div>
 </section>
 
-<section class="reveal">
+<section class="reveal" id="see-it">
   <div class="wrap">
-    <div class="section-head"><h2>From reading to knowledge</h2><p class="lead">Everything you save is one linked object, shown wherever it is useful: in the book, in a collection, on a canvas, in a research workspace and in search.</p></div>
-    <ol class="grid g3 flow">${flow.map((step, i) => `<li class="card"><p class="eyebrow">${i + 1}</p><h3>${step}</h3></li>`).join('')}</ol>
+    <div class="section-head"><h2>See the app</h2></div>
+    ${shotsBlock()}
   </div>
 </section>
 
-${sections
-  .map(
-    ([eyebrow, title, text, href, link], i) => `<section class="${i % 2 === 0 ? 'alt ' : ''}reveal"><div class="wrap narrow"><p class="eyebrow">${esc(eyebrow)}</p><h2>${esc(title)}</h2><p>${esc(text)}</p><p><a href="${href}">${esc(link)} →</a></p></div></section>`
-  )
-  .join('\n')}
+<section class="alt reveal" id="stages">
+  <div class="wrap">
+    <div class="section-head"><h2>From reading to knowledge</h2><p class="lead">Everything you save is one linked object, shown wherever it is useful: in the book, in a collection, on a canvas, in a research workspace and in search. Six stages, in the order you use them.</p></div>
+    <ol class="grid g3 stages">${stages.map(stageCard).join('')}</ol>
+  </div>
+</section>
 
 <section class="reveal" id="pricing">
   <div class="wrap">
@@ -108,14 +130,7 @@ ${sections
   </div>
 </section>
 
-<section class="reveal">
-  <div class="wrap">
-    <div class="section-head"><h2>Screenshots</h2></div>
-    ${screenshots.length
-      ? `<div class="shots">${screenshots.map((s) => `<figure${s.wide ? ' class="wide"' : ''}><img src="/assets/screenshots/${s.file}" alt="${esc(s.alt)}" width="${s.width}" height="${s.height}" loading="lazy" decoding="async"><figcaption>${esc(s.caption)}</figcaption></figure>`).join('')}</div><p class="small muted">Screenshots show the Android app with public-domain sample books and sample notes.</p>`
-      : `<div class="empty"><p><strong>Screenshots are coming soon.</strong></p><p class="small">We only show real screenshots of the released app. Until they are added, see the <a href="/docs/">documentation</a> for how each feature works.</p></div>`}
-  </div>
-</section>
+${evidence()}
 
 <section class="alt reveal">
   <div class="wrap narrow">

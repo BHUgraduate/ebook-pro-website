@@ -50,7 +50,9 @@ The app repository (`folio_reader`) is the source of truth. Do not mark a featur
 | Add an FAQ | `src/content/faq.mjs` (also feeds FAQ structured data) |
 | Update the roadmap | `src/content/roadmap.mjs` |
 | Add a changelog entry | add an object at the **top** of `src/content/changelog.mjs` |
-| Add screenshots | put real images in `src/assets/screenshots/`, list them in `src/content/screenshots.mjs` |
+| Add screenshots | put real images in `src/assets/screenshots/`, list them in `src/content/screenshots.mjs`, and update `screenshotsVersion` to the app version they were captured on |
+| Change the home page story (Read → Create) | `src/content/stages.mjs` (only released features; mark Premium ones) |
+| Publish downloads, ratings, reviews or user stories | `src/content/trust.mjs`. Real entries only, each with an https `source` and an ISO `date`; `npm run check` rejects entries without them. While empty, the home page says nothing is published yet |
 | Publish the Google Play link | set `android.playStoreUrl` in `site.config.mjs` |
 | Change the social preview | replace `src/assets/img/og_preview.png` (1200×630) |
 
