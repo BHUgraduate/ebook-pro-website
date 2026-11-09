@@ -29,16 +29,14 @@ export const site = {
 
   android: {
     packageName: 'com.hycyon.ebookpro',
-    // Set to the real listing URL once the app is published, e.g.
-    // 'https://play.google.com/store/apps/details?id=com.hycyon.ebookpro'
-    // While null the site shows "Google Play: coming soon" and never a dead link.
-    playStoreUrl: null,
+    // Public Google Play listing. Set to null to fall back to "Google Play: coming soon".
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.hycyon.ebookpro',
   },
   ios: { appStoreUrl: null }, // Not released. Never add a fake link.
 
   // Real "Last updated" dates (ISO). Bump when the page text materially changes.
   updated: {
-    site: '2026-10-14', // general site content (used for sitemap lastmod)
+    site: '2026-11-09', // general site content (used for sitemap lastmod)
     privacy: '2026-10-14',
     terms: '2026-10-14',
     refund: '2026-10-14',
