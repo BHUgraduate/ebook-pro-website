@@ -10,7 +10,7 @@ export const changelog = [
       'Listening mode highlights the sentence being read aloud.',
     ],
     changed: [
-      'Reading text stays clear of the status and navigation bars, and the reader’s top bar is solid and matches the paper.',
+      'Reading text stays clear of the status bar, and the reader’s top bar is solid and matches the paper.',
       'The word card opens on the side of the word where it has room, so answers are not cut off.',
       'Drawing: a new pen is white on dark paper, highlights stay visible while you draw, and the highlighter message no longer covers the toolbar.',
       'The listen and draw buttons match the reader’s other controls and sit clear of the page slider.',
