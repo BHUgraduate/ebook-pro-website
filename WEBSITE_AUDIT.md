@@ -56,7 +56,7 @@ Done: public HTTPS HTML privacy policy at `/privacy/` (labelled, mobile-friendly
 - Data Safety form: declare account info, optional photos, user content (reviews), app activity/diagnostics as applicable, AI text sent to a server, payments via Razorpay; declare deletion URL. Consider an in-app disclosure before the first AI request (selected text leaves the device).
 - Verify/finish: Sign in with Apple config; FCM (token handling, notification permission rationale); Firestore region and backup/PITR settings (policy says no intentional long-term copies); permission list in the release manifest after plugin merge.
 - Developer name: `site.config.mjs` uses "Hycyon" — make it identical to the Play listing. Terms governing-law/liability wording is plain-language boilerplate: have it reviewed.
-- Set `android.playStoreUrl` once the listing is live; add real screenshots; (optional) confirm minimum Android version for `/download/`.
+- ~~Set `android.playStoreUrl` once the listing is live~~ (done, 2026-11-09); add real screenshots; (optional) confirm minimum Android version for `/download/`.
 - Rotate the leaked secrets (top of this file).
 
 ## Known limitations

@@ -257,15 +257,15 @@ export function download() {
   const play = site.android.playStoreUrl
     ? `<a class="btn btn-primary" href="${site.android.playStoreUrl}" rel="noopener">Get it on Google Play</a>`
     : `<span class="btn btn-secondary" aria-disabled="true" role="text">Google Play: coming soon</span>`;
-  const body = `${pageHead('Download', 'Get eBook Pro', 'Use eBook Pro in your browser today. The Android app is coming to Google Play.')}
+  const body = `${pageHead('Download', 'Get eBook Pro', site.android.playStoreUrl ? 'Install the Android app from Google Play, or use eBook Pro in your browser.' : 'Use eBook Pro in your browser today. The Android app is coming to Google Play.')}
 <section><div class="wrap narrow"><div class="grid" style="gap:1.25rem">
   <div class="card"><h2 style="font-size:1.4rem">Android ${site.android.playStoreUrl ? status.available : status.soon}</h2>
-  <p>${site.android.playStoreUrl ? 'Install from Google Play.' : 'The Android app is being prepared for Google Play. This button will link to the listing when it is live; until then it is intentionally not a link.'}</p>
+  <p>${site.android.playStoreUrl ? 'Install eBook Pro free from Google Play.' : 'The Android app is being prepared for Google Play. This button will link to the listing when it is live; until then it is intentionally not a link.'}</p>
   <div class="btn-row">${play}</div><p class="small muted" style="margin-top:.75rem">Package: <code>${site.android.packageName}</code>. Minimum Android version: shown on the Google Play listing.</p></div>
   <div class="card"><h2 style="font-size:1.4rem">Web ${status.available}</h2><p>Open eBook Pro in any modern browser. No install needed.</p><div class="btn-row">${launchBtn()}</div><p class="small muted" style="margin-top:.75rem">Some features (OCR, on-device translation) are Android-only. See <a href="/web-app/">web app</a>.</p></div>
   <div class="card"><h2 style="font-size:1.4rem">iPhone &amp; iPad ${status.planned}</h2><p>There is no iOS app yet. We will add an App Store link here only when one exists.</p></div>
 </div></div></section>`;
-  return { path: '/download/', title: 'Get the ebook reader app', description: 'Get the eBook Pro ebook reader app: launch the web app, get the Android app on Google Play when it is live. iPhone and iPad are not available yet.', body, ld: [softwareLd] };
+  return { path: '/download/', title: 'Get the ebook reader app', description: site.android.playStoreUrl ? 'Get the eBook Pro ebook reader app: install the Android app from Google Play or launch the web app. iPhone and iPad are not available yet.' : 'Get the eBook Pro ebook reader app: launch the web app, get the Android app on Google Play when it is live. iPhone and iPad are not available yet.', body, ld: [softwareLd] };
 }
 
 export function webApp() {
