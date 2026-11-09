@@ -49,13 +49,18 @@
       });
     });
   }
-  // First-visit "get the app" card. Shown once per browser: the flag is stored the moment it opens,
-  // so a reload or a later visit never shows it again. No storage (private mode, blocked) = never shown.
+  // "Get the app" card. Shown on every refresh and every arrival from outside the site
+  // (new tab, typed URL, search, another site); not when moving between pages of this site.
   (function () {
-    var tpl = document.getElementById('app-promo-tpl'), KEY = 'ebookpro.appPromoSeen';
+    var tpl = document.getElementById('app-promo-tpl');
     if (!tpl || !('content' in tpl) || typeof HTMLDialogElement !== 'function') return;
     if (/^\/delete-account\//.test(location.pathname)) return; // never interrupt a task page
-    try { if (localStorage.getItem(KEY)) return; localStorage.setItem(KEY, String(Date.now())); } catch (e) { return; }
+    var nav = window.performance && performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
+    var reload = nav ? nav.type === 'reload' : (performance.navigation && performance.navigation.type === 1);
+    var internal = false;
+    try { internal = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
+    if (nav && nav.type === 'back_forward') return; // Back/Forward is moving around, not arriving
+    if (internal && !reload) return;
 
     setTimeout(function () {
       var dlg = tpl.content.firstElementChild.cloneNode(true), root = document.documentElement, closing = false;
