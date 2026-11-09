@@ -11,7 +11,7 @@ export const abs = (path) => site.url + path;
 const OG_IMAGE = abs('/assets/img/og_preview.png');
 
 /* First-visit "get the app" card. An inert <template>: it renders nothing and changes no layout.
-   site.js turns it into a modal <dialog> once per browser (localStorage), and never without JS. */
+   site.js turns it into a modal <dialog> on each refresh or arrival from outside the site, never without JS. */
 const appPromo = () => {
   const url = site.android.playStoreUrl;
   if (!url) return '';
