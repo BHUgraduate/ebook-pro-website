@@ -2,6 +2,30 @@
 // Only list things that were implemented AND verified (tests or on-device) for that release.
 export const changelog = [
   {
+    version: '1.5.2 (build 10)',
+    date: '2026-11-09',
+    kind: 'App',
+    added: [
+      'Designed covers: every book in your library and the store gets an eBook Pro cover, the same one every time. Turn it off in Settings → Appearance → Designed covers to see the publisher’s art.',
+      'Listening mode highlights the sentence being read aloud.',
+    ],
+    changed: [
+      'Reading text stays clear of the status bar, and the reader’s top bar is solid and matches the paper.',
+      'The word card opens on the side of the word where it has room, so answers are not cut off.',
+      'Drawing: a new pen is white on dark paper, highlights stay visible while you draw, and the highlighter message no longer covers the toolbar.',
+      'The listen and draw buttons match the reader’s other controls and sit clear of the page slider.',
+      'Continue cards on Home show the time left and a progress bar; canvases open at a readable size on phones; search results no longer cut words.',
+      'Reading text and titles use the bundled Merriweather typeface on every device.',
+      'The app opens faster: sync, the update check and the folder scan start after Home has appeared.',
+    ],
+    fixed: [
+      'The reading dashboard and smart collections counted any book past 1% as finished.',
+      'On tablets, the two-page spread cut a line in half between the pages, and long-pressing a word on the right-hand page could look up the wrong word.',
+      'Highlights floated over the page while it was turning.',
+      'In the light theme, the Simplify, Summarize and Examples buttons on the AI card were blank.',
+    ],
+  },
+  {
     version: 'Website 2.1',
     date: '2026-11-09',
     kind: 'Website',
