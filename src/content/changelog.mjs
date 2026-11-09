@@ -2,6 +2,17 @@
 // Only list things that were implemented AND verified (tests or on-device) for that release.
 export const changelog = [
   {
+    version: 'Website 2.1',
+    date: '2026-11-09',
+    kind: 'Website',
+    added: [
+      'A Screenshots page: every feature of the app on a phone and a tablet, in the light and the dark theme.',
+    ],
+    changed: [
+      'The home page shows current screenshots of the app, including the canvas and bilingual reading.',
+    ],
+  },
+  {
     version: '1.5.1 (build 9)',
     date: '2026-10-14',
     kind: 'App',

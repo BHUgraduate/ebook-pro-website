@@ -81,6 +81,7 @@ export const footer = [
     title: 'Product',
     links: [
       ['/features/', 'Features'],
+      ['/screenshots/', 'Screenshots'],
       ['/formats/', 'Supported formats'],
       ['/premium/', 'Premium'],
       ['/download/', 'Download'],

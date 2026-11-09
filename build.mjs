@@ -15,7 +15,7 @@ const out = (p, data) => { const f = join(root, p); mkdirSync(dirname(f), { recu
 
 const pages = [
   P.home(), P.features(), P.formatsPage(), P.ai(), P.premiumPage(), P.download(), P.webApp(), P.about(), P.faqPage(),
-  P.roadmapPage(), P.changelogPage(), P.support(),
+  P.roadmapPage(), P.changelogPage(), P.support(), P.screenshotsPage(),
   docsIndex(), ...docPages(),
   L.privacy(), L.terms(), L.refund(), L.security(), L.deleteAccount(), L.legalHub(),
   P.notFound(),
