@@ -99,6 +99,32 @@
     <p class="copy small muted">&copy; 2026 eBook Pro. Developed by Hycyon, Varanasi, Uttar Pradesh, India.</p>
   </div>
 </footer>
+<template id="app-promo-tpl">
+<dialog class="promo" aria-labelledby="promo-title" aria-describedby="promo-text">
+  <div class="promo-card">
+    <button type="button" class="promo-close" data-promo-close aria-label="Close">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="promo-art" aria-hidden="true">
+      <span class="promo-page p1"></span><span class="promo-page p2"></span>
+      <img src="/assets/img/logo-128.png" width="88" height="88" alt="" class="promo-icon">
+      <span class="promo-spark s1">✦</span><span class="promo-spark s2">✦</span><span class="promo-spark s3">✦</span>
+    </div>
+    <div class="promo-body">
+      <p class="promo-eyebrow">New · Now on Google Play</p>
+      <p class="promo-title" id="promo-title">Your library, now in your pocket.</p>
+      <p class="promo-text" id="promo-text">Get the free eBook Pro app for Android: read PDFs and EPUBs, highlight, translate and scan pages on your device, and keep learning wherever you are.</p>
+      <!-- Play Store button slot: can be swapped for Google's official "Get it on Google Play" badge image. -->
+      <a class="promo-badge" href="https://play.google.com/store/apps/details?id=com.hycyon.ebookpro" rel="noopener" data-promo-go>
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#00d7fe" d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1z"/><path fill="#ffce00" d="m17.2 8.6-3.4 3.4 3.4 3.4 3.8-2.2c.9-.5.9-1.8 0-2.4z"/><path fill="#00f076" d="M3.6 1.8c.3-.2.8-.2 1.2 0l12.4 6.8-3.4 3.4z"/><path fill="#f63448" d="M13.8 12l3.4 3.4-12.4 6.8c-.4.2-.9.2-1.2 0z"/></svg>
+        <span><small>GET IT ON</small>Google Play</span>
+      </a>
+      <p class="promo-meta">Free · Android · Not on the App Store yet</p>
+      <button type="button" class="promo-skip" data-promo-close>Skip to website</button>
+    </div>
+  </div>
+</dialog>
+</template>
 <script src="/assets/js/site.js" defer></script>
 
 </body>

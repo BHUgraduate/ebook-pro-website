@@ -49,4 +49,40 @@
       });
     });
   }
+  // First-visit "get the app" card. Shown once per browser: the flag is stored the moment it opens,
+  // so a reload or a later visit never shows it again. No storage (private mode, blocked) = never shown.
+  (function () {
+    var tpl = document.getElementById('app-promo-tpl'), KEY = 'ebookpro.appPromoSeen';
+    if (!tpl || !('content' in tpl) || typeof HTMLDialogElement !== 'function') return;
+    if (/^\/delete-account\//.test(location.pathname)) return; // never interrupt a task page
+    try { if (localStorage.getItem(KEY)) return; localStorage.setItem(KEY, String(Date.now())); } catch (e) { return; }
+
+    setTimeout(function () {
+      var dlg = tpl.content.firstElementChild.cloneNode(true), root = document.documentElement, closing = false;
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var gutter = window.innerWidth - root.clientWidth; // keep the page from shifting when scroll locks
+      document.body.appendChild(dlg);
+      if (gutter > 0) root.style.paddingRight = gutter + 'px';
+      root.classList.add('promo-lock');
+      dlg.showModal();
+      requestAnimationFrame(function () { requestAnimationFrame(function () { dlg.classList.add('is-open'); }); });
+
+      var done = function () {
+        if (dlg.open) dlg.close();
+        dlg.remove(); root.classList.remove('promo-lock'); root.style.paddingRight = '';
+      };
+      var close = function () {
+        if (closing) return; closing = true;
+        dlg.classList.remove('is-open');
+        if (reduce) return done();
+        var t = setTimeout(done, 400);
+        dlg.addEventListener('transitionend', function f(e) { if (e.target === dlg) { clearTimeout(t); dlg.removeEventListener('transitionend', f); done(); } });
+      };
+      dlg.addEventListener('cancel', function (e) { e.preventDefault(); close(); }); // Escape
+      dlg.addEventListener('click', function (e) {
+        if (e.target === dlg || e.target.closest('[data-promo-close]')) close(); // backdrop, X, "Skip to website"
+        else if (e.target.closest('[data-promo-go]')) setTimeout(close, 150);
+      });
+    }, 900);
+  })();
 })();
