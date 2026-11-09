@@ -275,3 +275,37 @@ details.faq .a p:last-child{margin:0}
 .fact .badge{display:block;width:fit-content;margin:0 0 .5rem}
 .evidence{list-style:none;padding:0;margin:0 0 1.5rem}
 .evidence li{padding:.9rem 0;border-bottom:1px solid var(--line)}
+
+/* First-visit app card (modal <dialog> built by site.js; nothing here applies until it is opened) */
+.promo{border:0;padding:1rem;margin:auto;background:transparent;max-width:min(26rem,100%);width:100%;max-height:100%;overflow:visible;color:var(--ink)}
+.promo::backdrop{background:rgba(12,15,30,.42);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+.promo,.promo::backdrop{opacity:0;transition:opacity .32s ease}
+.promo.is-open,.promo.is-open::backdrop{opacity:1}
+.promo-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(12,15,30,.28),0 2px 6px rgba(12,15,30,.12);transform:translateY(14px) scale(.97);transition:transform .38s cubic-bezier(.2,.8,.2,1)}
+.promo.is-open .promo-card{transform:none}
+.promo-close{position:absolute;top:.6rem;right:.6rem;z-index:2;width:40px;height:40px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;color:#fff;background:rgba(255,255,255,.18);transition:background-color .15s,transform .15s}
+.promo-close:hover{background:rgba(255,255,255,.3);transform:rotate(90deg)}
+.promo-art{position:relative;height:150px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(120% 90% at 85% 0%,#f5a524 0%,transparent 55%),radial-gradient(100% 120% at 0% 100%,#7c8dff 0%,transparent 60%),linear-gradient(135deg,#1f3df0,#3a1fa8)}
+.promo-icon{position:relative;z-index:1;border-radius:22px;box-shadow:0 12px 28px rgba(0,0,0,.35);transform:rotate(-6deg);animation:promo-float 5s ease-in-out infinite}
+.promo-page{position:absolute;width:74px;height:96px;border-radius:8px;background:rgba(255,255,255,.9);box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.promo-page::before{content:"";position:absolute;inset:16px 12px auto;height:46px;background:repeating-linear-gradient(#c9cfe8 0 3px,transparent 3px 10px)}
+.promo-page.p1{transform:translate(-62px,10px) rotate(-14deg);opacity:.55}
+.promo-page.p2{transform:translate(62px,8px) rotate(12deg);opacity:.75}
+.promo-spark{position:absolute;color:#ffe08a;font-size:.9rem;animation:promo-twinkle 2.6s ease-in-out infinite}
+.promo-spark.s1{top:22%;left:20%}.promo-spark.s2{top:16%;right:24%;font-size:1.2rem;animation-delay:.9s}.promo-spark.s3{bottom:18%;right:16%;animation-delay:1.6s}
+.promo-body{padding:1.4rem 1.5rem 1.1rem;text-align:center}
+.promo-eyebrow{display:inline-block;margin:0 0 .7rem;padding:.25rem .7rem;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.promo-title{font:600 clamp(1.45rem,5.5vw,1.75rem)/1.2 var(--serif);letter-spacing:-.01em;margin:0 0 .55rem}
+.promo-text{color:var(--ink-2);font-size:.96rem;margin:0 0 1.2rem}
+.promo-badge{display:inline-flex;align-items:center;gap:.65rem;padding:.55rem 1.25rem .55rem 1rem;min-height:52px;border-radius:12px;background:#000;color:#fff;text-decoration:none;border:1px solid #a6a6a6;transition:transform .15s,box-shadow .15s}
+.promo-badge:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.25);text-decoration:none}
+.promo-badge span{display:flex;flex-direction:column;align-items:flex-start;font:600 1.15rem/1.1 var(--sans)}
+.promo-badge small{font-size:.62rem;font-weight:500;letter-spacing:.06em}
+.promo-meta{color:var(--ink-3);font-size:.78rem;margin:.75rem 0 .35rem}
+.promo-skip{background:none;border:0;padding:.6rem .5rem;min-height:44px;color:var(--ink-3);font:500 .9rem var(--sans);text-decoration:underline;text-underline-offset:.2em;cursor:pointer}
+.promo-skip:hover{color:var(--ink)}
+html.promo-lock{overflow:hidden}
+@keyframes promo-float{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-6px)}}
+@keyframes promo-twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+@media (prefers-color-scheme:dark){.promo::backdrop{background:rgba(0,0,0,.55)}.promo-badge{border-color:#5a5f78}}
+@media (prefers-reduced-motion:reduce){.promo,.promo::backdrop,.promo-card{transition:none}.promo-icon,.promo-spark{animation:none}}
