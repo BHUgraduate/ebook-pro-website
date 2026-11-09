@@ -309,3 +309,22 @@ html.promo-lock{overflow:hidden}
 @keyframes promo-twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
 @media (prefers-color-scheme:dark){.promo::backdrop{background:rgba(0,0,0,.55)}.promo-badge{border-color:#5a5f78}}
 @media (prefers-reduced-motion:reduce){.promo,.promo::backdrop,.promo-card{transition:none}.promo-icon,.promo-spark{animation:none}}
+
+/* Screenshot gallery (/screenshots/) */
+.gallery-switch{display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;margin:0 0 1.75rem;position:sticky;top:64px;z-index:5;padding:.6rem 0;background:var(--bg)}
+.gallery-switch [role=group]{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.gallery-switch button{font:600 .9rem var(--sans);color:var(--ink-2);background:none;border:0;border-radius:999px;padding:.45rem 1rem;cursor:pointer;min-height:40px}
+.gallery-switch button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.gallery-switch button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.gallery-set{margin:0 0 2.5rem}
+.gallery-set h2{font-size:1.25rem;margin:0 0 1rem}
+.js .gallery-set.is-hidden{display:none}
+.js .gallery-switch:not([hidden]) ~ .gallery-set h2{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.gallery{display:grid;gap:1.25rem}
+.gallery.phone{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.gallery.tablet{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.gallery-card{margin:0;min-width:0}
+.gallery-card img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line);background:var(--surface-2)}
+.gallery-card figcaption{font-size:.85rem;line-height:1.4;color:var(--ink-2);margin-top:.5rem}
+.gallery-card figcaption strong{display:block;color:var(--ink);font-weight:600}
+.gallery-card .num{float:right;font:600 .75rem var(--sans);color:var(--accent-ink)}

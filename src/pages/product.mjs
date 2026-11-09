@@ -6,6 +6,7 @@ import { faq } from '../content/faq.mjs';
 import { roadmap, roadmapGroups } from '../content/roadmap.mjs';
 import { changelog, changelogNote } from '../content/changelog.mjs';
 import { screenshots, screenshotsVersion } from '../content/screenshots.mjs';
+import { gallery, galleryDevices, galleryThemes, galleryCapturedOn } from '../content/gallery.mjs';
 import { freeFeatures, premiumFeatures, afterPremiumEnds } from '../content/plans.mjs';
 import { stages } from '../content/stages.mjs';
 import { metrics, reviews, stories } from '../content/trust.mjs';
@@ -47,7 +48,7 @@ const stageCard = (st, i) => `<li class="card stage"><p class="eyebrow">${i + 1}
 
 const shotsBlock = () =>
   screenshots.length
-    ? `<div class="shots">${screenshots.map((s) => `<figure${s.wide ? ' class="wide"' : ''}><img src="/assets/screenshots/${s.file}" alt="${esc(s.alt)}" width="${s.width}" height="${s.height}" loading="lazy" decoding="async"><figcaption>${esc(s.caption)}</figcaption></figure>`).join('')}</div><p class="small muted">Real screenshots of the Android app, captured on version ${esc(screenshotsVersion)} with public-domain sample books and sample notes. The canvas, research workspaces and sync arrived in later versions and are not pictured yet.</p>`
+    ? `<div class="shots">${screenshots.map((s) => `<figure${s.wide ? ' class="wide"' : ''}><img src="/assets/screenshots/${s.file}" alt="${esc(s.alt)}" width="${s.width}" height="${s.height}" loading="lazy" decoding="async"><figcaption>${esc(s.caption)}</figcaption></figure>`).join('')}</div><p class="small muted">Real screenshots of the app (${esc(screenshotsVersion)}), captured with public-domain and demo books and sample notes. <a href="/screenshots/">See all ${gallery.length} features, on phone and tablet, in light and dark →</a></p>`
     : `<div class="empty"><p><strong>Screenshots are coming soon.</strong></p><p class="small">We only show real screenshots of the released app. Until they are added, see the <a href="/docs/">documentation</a> for how each feature works.</p></div>`;
 
 const fact = (label, value) => `<div class="card fact"><p class="eyebrow">${esc(label)}</p><p>${value}</p></div>`;
@@ -154,6 +155,34 @@ ${ctaBand('Start reading', 'Open the web app in your browser, or get the Android
     description: `eBook Pro turns reading into knowledge: a free ebook reader app for PDF, EPUB and TXT with highlights, notes and OCR, plus Premium (${premium.pricePerPeriod}) AI, canvas, research and sync.`,
     body,
     ld: [{ '@context': 'https://schema.org', '@graph': [websiteLd, orgLd] }, softwareLd],
+  };
+}
+
+/* ------------------------------------------------------------ SCREENSHOTS */
+export function screenshotsPage() {
+  const sets = galleryDevices.flatMap((d) => galleryThemes.map((t) => ({ d, t })));
+  const figure = (g, d, t) => `<figure class="gallery-card"><a href="/assets/screenshots/gallery/${d.id}/${t.id}/${g.file}.webp" rel="noopener"><img src="/assets/screenshots/gallery/${d.id}/${t.id}/${g.file}.webp" alt="${esc(`${g.title}: ${g.text} (${d.label.toLowerCase()}, ${t.label.toLowerCase()} theme)`)}" width="${d.width}" height="${d.height}" loading="lazy" decoding="async"></a><figcaption><span class="num">${esc(g.file.slice(0, 2))}</span> <strong>${esc(g.kicker)}</strong> ${esc(g.title)}</figcaption></figure>`;
+  const body = `${pageHead('Screenshots', 'Every feature, on every screen', `${gallery.length} features of eBook Pro, each on a phone and a tablet, in the light and the dark theme. Every image is a real screen of the app, captured with demo books (public-domain classics and invented titles) and framed with a headline.`)}
+<section>
+  <div class="wrap">
+    <div class="gallery-switch" hidden>
+      <div role="group" aria-label="Device">${galleryDevices.map((d, i) => `<button type="button" data-device="${d.id}" aria-pressed="${i === 0}">${esc(d.label)}</button>`).join('')}</div>
+      <div role="group" aria-label="Theme">${galleryThemes.map((t, i) => `<button type="button" data-theme="${t.id}" aria-pressed="${i === 0}">${esc(t.label)}</button>`).join('')}</div>
+    </div>
+    ${sets.map(({ d, t }) => `<section class="gallery-set" data-set="${d.id}-${t.id}" aria-labelledby="set-${d.id}-${t.id}">
+      <h2 id="set-${d.id}-${t.id}">${esc(d.label)} · ${esc(t.label)} theme</h2>
+      <div class="gallery ${d.id}">${gallery.map((g) => figure(g, d, t)).join('')}</div>
+    </section>`).join('')}
+    <p class="small muted">Captured on ${esc(galleryCapturedOn.version)} ${esc(galleryCapturedOn.note)}, ${fmtDate(galleryCapturedOn.date)}. Translations and AI answers in the images are examples written for the demo; in the app they come from on-device translation and Google Gemini.</p>
+  </div>
+</section>
+${ctaBand('Try it yourself', 'Open the web app in your browser, or get the Android app.', `${launchBtn()}${androidBtn()}`)}`;
+  return {
+    path: '/screenshots/',
+    title: 'Screenshots',
+    description: `Screenshots of all ${gallery.length} eBook Pro features on phone and tablet, light and dark: reading, translation, AI, notes, flashcards, canvas and research.`,
+    body,
+    scripts: ['<script src="/assets/js/gallery.js" defer></script>'],
   };
 }
 
